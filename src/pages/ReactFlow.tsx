@@ -18,13 +18,16 @@ const ReactFlow = () => {
   const handleGenerateFlowchart = async () => {
     console.log("starting..");
     try {
-      const response = await fetch("http://localhost:5000/generate", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ description }),
-      });
+      const response = await fetch(
+        "https://ai-engine-backend-1.onrender.com/generate",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ description }),
+        }
+      );
 
       if (!response.ok) {
         throw new Error("Failed to generate flowchart");
@@ -47,6 +50,7 @@ const ReactFlow = () => {
         setFinalEdges(edges);
 
         setFlowchart({ nodes, edges });
+        setDescription("");
       } else {
         throw new Error("Failed to extract JSON from message content");
       }
