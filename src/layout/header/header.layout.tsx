@@ -1,9 +1,13 @@
 import { useState } from "react";
 import { IoMenu } from "react-icons/io5";
 import { Link } from "react-router-dom";
+import { useTheme } from "src/context/hooks/useTheme";
+import { FiSun } from "react-icons/fi";
+import { FaMoon } from "react-icons/fa";
 
 const Header = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
+  const { theme, toggleTheme } = useTheme();
 
   const handleLoginClick = () => {
     window.location.href = "https://www.google.com";
@@ -18,9 +22,11 @@ const Header = () => {
   ];
 
   return (
-    <header className="bg-gray-800 text-white">
-      <nav className="h-20 border-b border-deep-blue flex items-center justify-between px-6 lg:px-12 sticky top-0 z-50 bg-white">
-        <h1 className="text-[#131b62] font-bold text-2xl sm:text-2xl">MajMap</h1>
+    <header className="bg-white dark:bg-gray-800 text-white">
+      <nav className="h-20 border-b border-deep-blue flex items-center justify-between px-6 lg:px-12 sticky top-0 z-50">
+        <h1 className="text-[#131b62] font-bold text-2xl sm:text-2xl">
+          MajMap
+        </h1>
 
         {/* Desktop Navigation */}
         <div className="hidden md:flex gap-6">
@@ -34,12 +40,20 @@ const Header = () => {
         </div>
 
         {/* Desktop Login Button */}
-        <button
-          className="hidden md:block px-6 py-2 border border-blue-900 text-blue-900 rounded-md hover:bg-blue-900 hover:text-white transition"
-          onClick={handleLoginClick}
-        >
-          Log In
-        </button>
+        <div className="flex justify-center items-center gap-4">
+          <button
+            className="px-6 py-2 border border-blue-900 text-blue-900 rounded-md hover:bg-blue-900 hover:text-white transition"
+            onClick={handleLoginClick}
+          >
+            Log In
+          </button>
+          <button
+            onClick={toggleTheme}
+            className="p-2 bg-gray-200 dark:bg-gray-700 rounded"
+          >
+            {theme === "light" ? <FaMoon /> : <FiSun />}
+          </button>
+        </div>
 
         {/* Mobile Menu Button */}
         <button
@@ -75,12 +89,20 @@ const Header = () => {
                 ))}
               </div>
 
-              <button
-                className="mt-4 px-6 py-2 border border-blue-900 text-blue-900 rounded-md hover:bg-blue-900 hover:text-white transition"
-                onClick={handleLoginClick}
-              >
-                Log In
-              </button>
+              <div className="">
+                <button
+                  className="mt-4 px-6 py-2 border border-blue-900 text-blue-900 rounded-md hover:bg-blue-900 hover:text-white transition"
+                  onClick={handleLoginClick}
+                >
+                  Log In
+                </button>
+                <button
+                  onClick={toggleTheme}
+                  className="p-2 bg-gray-200 dark:bg-gray-700 rounded"
+                >
+                  {theme === "light" ? <FaMoon /> : <FiSun />}
+                </button>
+              </div>
             </div>
           </div>
         )}
