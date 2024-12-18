@@ -1,6 +1,5 @@
 import { useState } from "react";
 import Flowchart from "../components/ReactFlowComponents/Flowchar";
-
 const ReactFlow = () => {
   const [description, setDescription] = useState("");
   const [flowchart, setFlowchart] = useState<any>(null);
@@ -8,6 +7,7 @@ const ReactFlow = () => {
   const [finalEdges, setFinalEdges] = useState([]);
   const [generateFlowChart, setGenerateFlowChart] = useState(false);
   const [drawFlowChart, setDrawFlowChart] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const handleDescriptionChange = (
     event: React.ChangeEvent<HTMLInputElement>
@@ -17,6 +17,13 @@ const ReactFlow = () => {
 
   const handleGenerateFlowchart = async () => {
     console.log("starting..");
+
+    setFlowchart(null);
+    setFinalNodes([]);
+    setFinalEdges([]);
+
+    setLoading(true);
+
     try {
       const response = await fetch(
         "https://ai-engine-backend-1.onrender.com/generate",
@@ -56,6 +63,8 @@ const ReactFlow = () => {
       }
     } catch (error) {
       console.log("Error generating flowchart:", error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -107,6 +116,7 @@ const ReactFlow = () => {
           >
             Generate Flowchart
           </button>
+          {loading && <div>Loading...</div>}
           <div className="w-3/4 md:w-2/3 bg-white p-6 rounded-lg shadow-lg">
             {flowchart && <Flowchart flowchart={flowchart} />}
           </div>
