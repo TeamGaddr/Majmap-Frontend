@@ -16,8 +16,6 @@ const ReactFlow = () => {
   };
 
   const handleGenerateFlowchart = async () => {
-    console.log("starting..");
-
     setFlowchart(null);
     setFinalNodes([]);
     setFinalEdges([]);
