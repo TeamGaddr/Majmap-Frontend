@@ -76,6 +76,40 @@ const ReactFlow = () => {
     setGenerateFlowChart(false);
   };
 
+  const handleDownloadFlowchart = async () => {
+    if (flowchart) {
+      try {
+        const response = await fetch("http://localhost:5000/save-flowchart", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ flowchart }),
+        });
+
+        if (!response.ok) {
+          alert("Failed to save flowchart!");
+          return;
+        }
+
+        const blob = new Blob([JSON.stringify(flowchart, null, 2)], {
+          type: "application/json",
+        });
+        const link = document.createElement("a");
+        link.href = URL.createObjectURL(blob);
+        link.download = "flowchart.json";
+        link.click();
+
+        alert("Flowchart saved and downloaded successfully!");
+      } catch (error) {
+        console.error("Error saving and downloading flowchart:", error);
+        alert("An error occurred!");
+      }
+    } else {
+      alert("No flowchart to save and download!");
+    }
+  };
+
   return (
     <section>
       <section>
@@ -91,6 +125,12 @@ const ReactFlow = () => {
             onClick={toogleDrawFlowChart}
           >
             Draw FlowChart
+          </button>
+          <button
+            className="font-[20px] uppercase border-[2px] border-grey rounded-[20px] p-1 m-2 font-bold"
+            onClick={handleDownloadFlowchart}
+          >
+            Save this FlowChart
           </button>
         </div>
         <div
