@@ -16,15 +16,15 @@ import ROUTES from "src/shared/static/router.data";
 // Styles
 import "react-toastify/dist/ReactToastify.css";
 import HeaderFooterLayout from "src/layout/header-footer.layout";
-import RootPage from "./pages/root-page";
-import About from "./pages/About";
-import Posts from "./pages/Posts";
-import SignIn from "./pages/SignIn";
-import Profile from "./pages/Profile";
-import 'src/global.css';
+import RootPage from "./pages/landing/root-page";
+import About from "./pages/about/About";
+import Posts from "./pages/posts/Posts";
+import SignIn from "./pages/auth/SignIn";
+import Profile from "./pages/profile/Profile";
+import "src/global.css";
 
 function ScrollToTop() {
-  const { pathname } = useLocation();
+  const { pathname } = useLocation();  
 
   useEffect(() => {
     window.scrollTo(0, 0);
