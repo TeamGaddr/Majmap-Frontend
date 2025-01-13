@@ -19,12 +19,13 @@ import HeaderFooterLayout from "src/layout/header-footer.layout";
 import RootPage from "./pages/landing/root-page";
 import About from "./pages/about/About";
 import Posts from "./pages/posts/Posts";
-import SignIn from "./pages/auth/SignIn";
+import SignIn from "./pages/auth/signIn/SignIn.page";
 import Profile from "./pages/profile/Profile";
 import "src/global.css";
+import Signup from "./pages/auth/signup/Signup.page";
 
 function ScrollToTop() {
-  const { pathname } = useLocation();  
+  const { pathname } = useLocation();
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -46,7 +47,10 @@ function RoutingComponent() {
           {/* posts page */}
           <Route path={ROUTES.posts} element={<Posts />} />
           {/* sign in page */}
-          <Route path={ROUTES.login} element={<SignIn />} />
+          <Route path={ROUTES.authentication.signup} element={<SignIn />} />
+          {/* sign up page */}
+          <Route path={ROUTES.authentication.signin} element={<Signup />} />
+
           {/* profile page */}
           <Route path={ROUTES.profile} element={<Profile />} />
         </Route>

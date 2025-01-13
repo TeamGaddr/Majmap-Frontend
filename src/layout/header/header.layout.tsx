@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { useTheme } from "src/context/hooks/useTheme";
 import { FiSun } from "react-icons/fi";
 import { FaMoon } from "react-icons/fa";
+import ROUTES from "src/shared/static/router.data";
 
 const Header = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -14,11 +15,11 @@ const Header = () => {
   };
 
   const navLinks = [
-    { label: "Product", href: "/product" },
-    { label: "Use Cases", href: "/use-cases" },
-    { label: "Templates", href: "/templates" },
-    { label: "Pricing", href: "/pricing" },
-    { label: "Contact", href: "/contact" },
+    { label: "Home", href: ROUTES.root },
+    { label: "About Us", href: ROUTES.about },
+    { label: "Posts", href: ROUTES.posts },
+    { label: "Login", href: ROUTES.authentication.signin },
+    { label: "Profile", href: ROUTES.profile },
   ];
 
   return (

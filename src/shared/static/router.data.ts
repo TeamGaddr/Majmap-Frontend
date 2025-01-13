@@ -1,10 +1,13 @@
 const ROUTES = {
-    root: "/",
-    about: "/about",
-    posts: "/posts",
-    login: "/login",
-    profile: "/profile",
-  };
-  
-  export default ROUTES;
-  
+  authentication: {
+    root: "/auth",
+    signin: "/auth/login",
+    signup: "/auth/register",
+  },
+  root: "/",
+  about: "/about-us",
+  posts: "/all-posts",
+  profile: "/user-profile",
+};
+
+export default ROUTES;

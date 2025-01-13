@@ -13,7 +13,7 @@ interface AuthState {
   error: AuthError | null;
 }
 
-const SignIn: React.FC = () => {
+export default function Signup() {
   const navigate = useNavigate();
   const location = useLocation();
   const [authState, setAuthState] = useState<AuthState>({
@@ -103,8 +103,8 @@ const SignIn: React.FC = () => {
     <div className="flex min-h-screen bg-gray-50">
       <div className="m-auto w-full max-w-md p-8 space-y-6 bg-white rounded-xl shadow-lg">
         <div className="space-y-2 text-center">
-          <h1 className="text-2xl font-bold tracking-tight">Welcome Back</h1>
-          <p className="text-gray-500">Sign in to access your account</p>
+          <h1 className="text-2xl font-bold tracking-tight">Create an Account</h1>
+          <p className="text-gray-500">Sign up to get started</p>
         </div>
 
         {authState.error && (
@@ -146,7 +146,4 @@ const SignIn: React.FC = () => {
       </div>
     </div>
   );
-};
-
-export default SignIn;
-    
+}
