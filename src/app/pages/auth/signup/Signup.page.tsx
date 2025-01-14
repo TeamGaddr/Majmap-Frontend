@@ -4,7 +4,6 @@ import * as Yup from "yup";
 import { GoogleLogin } from "@react-oauth/google";
 import GoogleSignUp from "./GoogleSignUp";
 
-// Define validation schema for the form
 const validationSchema = Yup.object({
   displayName: Yup.string().required("Display Name is required"),
   email: Yup.string()
@@ -28,7 +27,6 @@ const Register: React.FC = () => {
     password: "",
   };
 
-  // Handle regular form submission (for manual registration)
   const handleSubmit = async (values: FormData) => {
     const { displayName, email, password } = values;
 
@@ -61,13 +59,12 @@ const Register: React.FC = () => {
     }
   };
 
-  // Handle Google registration
   const handleGoogleSignup = async (response: any) => {
     console.log("Google response:", response);
 
     if (response?.credential) {
       const payload = {
-        token: response.credential, // Send the Google credential token to the backend
+        token: response.credential, 
       };
 
       try {
