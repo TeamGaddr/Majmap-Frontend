@@ -2,6 +2,7 @@
 import { Suspense, useEffect } from "react";
 import { ToastContainer } from "react-toastify";
 import { BrowserRouter, Route, Routes, useLocation } from "react-router-dom";
+import { GoogleOAuthProvider } from "@react-oauth/google"; // Import the provider
 
 // Layouts
 
@@ -13,6 +14,9 @@ import ContextComponent from "../components/context/context.component";
 // Static Routes
 import ROUTES from "src/shared/static/router.data";
 
+const clientId =
+  "760399119728-13dkae27q63j9sfppmfrfmg49tg46hkb.apps.googleusercontent.com";
+
 // Styles
 import "react-toastify/dist/ReactToastify.css";
 import HeaderFooterLayout from "src/layout/header-footer.layout";
@@ -23,6 +27,7 @@ import SignIn from "./pages/auth/signIn/SignIn.page";
 import Profile from "./pages/profile/Profile";
 import "src/global.css";
 import Signup from "./pages/auth/signup/Signup.page";
+import Register from "./pages/auth/signup/Signup.page";
 
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -50,6 +55,7 @@ function RoutingComponent() {
           <Route path={ROUTES.authentication.signup} element={<SignIn />} />
           {/* sign up page */}
           <Route path={ROUTES.authentication.signin} element={<Signup />} />
+          <Route path={ROUTES.authentication.register} element={<Register />} />
 
           {/* profile page */}
           <Route path={ROUTES.profile} element={<Profile />} />
@@ -61,6 +67,7 @@ function RoutingComponent() {
 
 export default function RootLayout() {
   return (
+    // <GoogleOAuthProvider clientId={clientId}>
     <ContextComponent>
       <BrowserRouter>
         <Suspense fallback={<div>Loading...</div>}>
@@ -70,5 +77,6 @@ export default function RootLayout() {
         <ToastContainer position="top-right" autoClose={5000} hideProgressBar />
       </BrowserRouter>
     </ContextComponent>
+    // </GoogleOAuthProvider>
   );
 }
