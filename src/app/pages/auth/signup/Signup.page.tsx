@@ -3,6 +3,7 @@ import { Formik, Field, Form, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import zxcvbn from "zxcvbn";
 import { GoogleLogin } from "@react-oauth/google";
+import { toast } from "react-toastify";
 
 const validationSchema = Yup.object({
   displayName: Yup.string().required("Display Name is required"),
@@ -85,14 +86,13 @@ const Register: React.FC = () => {
       });
 
       if (response.ok) {
-        const data = await response.json();
-        alert("Registration successful! Token: " + data.token);
+        toast.success("Registration successful!");
       } else {
         const errorData = await response.json();
-        setErrors({ email: errorData.message || "Something went wrong!" });
+        toast.error(errorData.error);
       }
     } catch (error) {
-      console.error("Error during registration:", error);
+      toast.error("Registration failed: " + error);
       setErrors({
         email: "An unexpected error occurred. Please try again later.",
       });

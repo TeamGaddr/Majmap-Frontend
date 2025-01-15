@@ -2,9 +2,7 @@
 import { Suspense, useEffect } from "react";
 import { ToastContainer } from "react-toastify";
 import { BrowserRouter, Route, Routes, useLocation } from "react-router-dom";
-import { GoogleOAuthProvider } from "@react-oauth/google"; // Import the provider
 
-// Layouts
 // Context and Components
 import ContextComponent from "../components/context/context.component";
 
@@ -49,8 +47,8 @@ function RoutingComponent() {
           <Route path={ROUTES.posts} element={<Posts />} />
 
           {/* Authentication routes */}
-          <Route path={ROUTES.authentication.signup} element={<SignIn />} />
-          <Route path={ROUTES.authentication.signin} element={<Signup />} />
+          <Route path={ROUTES.authentication.login} element={<SignIn />} />
+          <Route path={ROUTES.authentication.register} element={<Signup />} />
 
           {/* profile page */}
           <Route path={ROUTES.profile} element={<Profile />} />

@@ -1,9 +1,7 @@
 const ROUTES = {
   authentication: {
-    root: "/auth",
-    signin: "/auth/login",
-    signup: "/auth/login",
-    register: "/register",
+    login: "/auth/login",
+    register: "/auth/register",
   },
   test: "/test",
   root: "/",
