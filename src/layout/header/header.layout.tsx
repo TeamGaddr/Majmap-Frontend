@@ -11,14 +11,14 @@ const Header = () => {
   const { theme, toggleTheme } = useTheme();
 
   const handleLoginClick = () => {
-    window.location.href = ROUTES.authentication.signin; // Direct user to the sign-in page
+    window.location.href = ROUTES.authentication.login; // Direct user to the sign-in page
   };
 
   const navLinks = [
     { label: "Home", href: ROUTES.root },
     { label: "About Us", href: ROUTES.about },
     { label: "Posts", href: ROUTES.posts },
-    { label: "Login", href: ROUTES.authentication.signin },
+    { label: "Login", href: ROUTES.authentication.login },
     { label: "Profile", href: ROUTES.profile },
   ];
 

@@ -22,6 +22,8 @@ import "src/global.css";
 import Signup from "./pages/auth/signup/Signup.page";
 
 import WorkflowEditor from "./pages/workflow/demo.page";
+import ReactFlow from "./pages/workflow/reactflow.page";
+import SidebarLayout from "src/layout/sidebar.layout";
 
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -52,8 +54,9 @@ function RoutingComponent() {
 
           {/* profile page */}
           <Route path={ROUTES.profile} element={<Profile />} />
-
-          {/* test */}
+          <Route path={ROUTES.reactFlow} element={<ReactFlow />} />
+        </Route>
+        <Route element={<SidebarLayout />}>
           <Route path={ROUTES.test} element={<WorkflowEditor />} />
         </Route>
       </Routes>

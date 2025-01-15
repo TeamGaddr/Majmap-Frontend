@@ -8,6 +8,7 @@ const ROUTES = {
   about: "/about-us",
   posts: "/all-posts",
   profile: "/user-profile",
+  reactFlow: "/react-flow",
 };
 
 export default ROUTES;
