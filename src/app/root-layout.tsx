@@ -4,12 +4,10 @@ import { ToastContainer } from "react-toastify";
 import { BrowserRouter, Route, Routes, useLocation } from "react-router-dom";
 
 // Layouts
-
 // Context and Components
 import ContextComponent from "../components/context/context.component";
 
 // Pages
-
 // Static Routes
 import ROUTES from "src/shared/static/router.data";
 
@@ -40,17 +38,16 @@ function RoutingComponent() {
       <Routes>
         {/* header footer layout */}
         <Route element={<HeaderFooterLayout />}>
-          {/* root page  */}
+          {/* root page */}
           <Route path={ROUTES.root} element={<RootPage />} />
           {/* about page */}
           <Route path={ROUTES.about} element={<About />} />
           {/* posts page */}
           <Route path={ROUTES.posts} element={<Posts />} />
           {/* sign in page */}
-          <Route path={ROUTES.authentication.signup} element={<SignIn />} />
+          <Route path={ROUTES.authentication.signin} element={<SignIn />} />
           {/* sign up page */}
-          <Route path={ROUTES.authentication.signin} element={<Signup />} />
-
+          <Route path={ROUTES.authentication.signup} element={<Signup />} />
           {/* profile page */}
           <Route path={ROUTES.profile} element={<Profile />} />
         </Route>

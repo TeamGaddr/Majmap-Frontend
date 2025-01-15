@@ -11,7 +11,7 @@ const Header = () => {
   const { theme, toggleTheme } = useTheme();
 
   const handleLoginClick = () => {
-    window.location.href = "https://www.google.com";
+    window.location.href = ROUTES.authentication.signin; // Direct user to the sign-in page
   };
 
   const navLinks = [
@@ -40,7 +40,7 @@ const Header = () => {
           ))}
         </div>
 
-        {/* Desktop Login Button */}
+        {/* Desktop Login Button and Dark Mode Toggle */}
         <div className="flex justify-center items-center gap-4">
           <button
             className="px-6 py-2 border border-blue-900 text-blue-900 rounded-md hover:bg-blue-900 hover:text-white transition"
@@ -58,7 +58,7 @@ const Header = () => {
 
         {/* Mobile Menu Button */}
         <button
-          className="md:hidden p-4 text-blue-900"
+          className="md:hidden p-3 text-blue-900 focus:outline-none focus:ring-2 focus:ring-blue-500"
           onClick={() => setMobileOpen(true)}
         >
           <IoMenu size={24} />
@@ -66,23 +66,24 @@ const Header = () => {
 
         {/* Mobile Menu Overlay */}
         {mobileOpen && (
-          <div className="fixed inset-0 bg-black/30 flex justify-end pt-4 md:hidden">
-            <div className="w-64 bg-white h-[400px] flex flex-col items-center shadow-lg">
-              <div className="w-full flex justify-end">
+          <div className="fixed inset-0 bg-black/50 flex justify-end md:hidden">
+            <div className="w-64 bg-white h-full flex flex-col shadow-lg">
+              <div className="w-full flex justify-between items-center p-4 border-b">
+                <h2 className="text-xl font-bold text-blue-900">Menu</h2>
                 <button
-                  className="text-2xl pr-4 text-blue-900"
+                  className="text-2xl text-blue-900 focus:outline-none"
                   onClick={() => setMobileOpen(false)}
                 >
                   &times;
                 </button>
               </div>
-
-              <div className="flex flex-col gap-4 mt-6">
+              
+              <div className="flex flex-col gap-4 mt-6 px-4">
                 {navLinks.map((link) => (
                   <Link key={link.label} to={link.href}>
                     <span
                       onClick={() => setMobileOpen(false)}
-                      className="cursor-pointer text-black hover:text-deep-blue transition-colors text-lg"
+                      className="cursor-pointer text-black hover:text-blue-900 transition-colors text-lg"
                     >
                       {link.label}
                     </span>
@@ -90,16 +91,16 @@ const Header = () => {
                 ))}
               </div>
 
-              <div className="">
+              <div className="mt-auto px-4 pb-6">
                 <button
-                  className="mt-4 px-6 py-2 border border-blue-900 text-blue-900 rounded-md hover:bg-blue-900 hover:text-white transition"
+                  className="w-full px-4 py-2 border border-blue-900 text-blue-900 rounded-md hover:bg-blue-900 hover:text-white transition"
                   onClick={handleLoginClick}
                 >
                   Log In
                 </button>
                 <button
                   onClick={toggleTheme}
-                  className="p-2 bg-gray-200 dark:bg-gray-700 rounded"
+                  className="mt-4 p-2 w-full bg-gray-200 dark:bg-gray-700 rounded flex justify-center"
                 >
                   {theme === "light" ? <FaMoon /> : <FiSun />}
                 </button>
