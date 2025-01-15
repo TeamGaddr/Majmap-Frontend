@@ -11,7 +11,7 @@ const Header = () => {
   const { theme, toggleTheme } = useTheme();
 
   const handleLoginClick = () => {
-    window.location.href = "https://www.google.com";
+    window.location.href = ROUTES.authentication.signin; // Direct user to the sign-in page
   };
 
   const navLinks = [
@@ -40,7 +40,7 @@ const Header = () => {
           ))}
         </div>
 
-        {/* Desktop Login Button */}
+        {/* Desktop Login Button and Dark Mode Toggle */}
         <div className="flex justify-center items-center gap-4">
           <button
             className="px-6 py-2 border border-blue-900 text-blue-900 rounded-md hover:bg-blue-900 hover:text-white transition"
