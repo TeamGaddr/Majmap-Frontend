@@ -8,7 +8,7 @@ export default function HeaderFooterLayout() {
 			{/* *~~*~~*~~ LAYOUT ~~*~~*~~* */}
 			<HeaderComponent />
 
-			<div className=" min-h-screen-2 mt-14   ">
+			<div className=" min-h-screen-2">
 				<Outlet />
 			</div>
 
@@ -16,3 +16,4 @@ export default function HeaderFooterLayout() {
 		</>
 	);
 }
+	

@@ -4,6 +4,7 @@ const ROUTES = {
     signin: "/auth/login",
     signup: "/auth/register",
   },
+  test: "/test",
   root: "/",
   about: "/about-us",
   posts: "/all-posts",

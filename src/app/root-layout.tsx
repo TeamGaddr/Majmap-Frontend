@@ -23,6 +23,7 @@ import SignIn from "./pages/auth/signIn/SignIn.page";
 import Profile from "./pages/profile/Profile";
 import "src/global.css";
 import Signup from "./pages/auth/signup/Signup.page";
+import WorkflowEditor from "./pages/workflow/demo.page";
 
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -46,13 +47,18 @@ function RoutingComponent() {
           <Route path={ROUTES.about} element={<About />} />
           {/* posts page */}
           <Route path={ROUTES.posts} element={<Posts />} />
-          {/* sign in page */}
-          <Route path={ROUTES.authentication.signup} element={<SignIn />} />
-          {/* sign up page */}
+
+
+          {/* Authentication routes */}
+          <Route path={ROUTES.authentication.signup} element={<SignIn />} />      
           <Route path={ROUTES.authentication.signin} element={<Signup />} />
 
           {/* profile page */}
           <Route path={ROUTES.profile} element={<Profile />} />
+
+          {/* test */}
+          <Route path={ROUTES.test} element={<WorkflowEditor />} />
+
         </Route>
       </Routes>
     </>
