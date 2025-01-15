@@ -1,8 +1,8 @@
 import React from "react";
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import * as Yup from "yup";
+import zxcvbn from "zxcvbn";
 import { GoogleLogin } from "@react-oauth/google";
-import GoogleSignUp from "./GoogleSignUp";
 
 const validationSchema = Yup.object({
   displayName: Yup.string().required("Display Name is required"),
@@ -12,28 +12,66 @@ const validationSchema = Yup.object({
   password: Yup.string()
     .min(6, "Password must be at least 6 characters")
     .required("Password is required"),
+  confirmPassword: Yup.string()
+    .oneOf([Yup.ref("password"), null], "Passwords must match")
+    .required("Confirm Password is required"),
 });
 
 interface FormData {
   displayName: string;
   email: string;
   password: string;
+  confirmPassword: string;
 }
+
+const PasswordStrengthMeter = ({ password }: { password: string }) => {
+  const testResult = zxcvbn(password || "");
+  const strengthLabels = ["Weak", "Fair", "Good", "Strong", "Very Strong"];
+  const strength = testResult.score;
+
+  return (
+    <div className="mt-2">
+      <progress
+        className="w-full h-2"
+        max="4"
+        value={strength}
+        style={{ backgroundColor: "lightgray" }}
+      />
+      <p
+        className={`text-sm mt-1 ${
+          strength === 0
+            ? "text-red-500"
+            : strength === 1
+            ? "text-orange-500"
+            : strength === 2
+            ? "text-yellow-500"
+            : "text-green-500"
+        }`}
+      >
+        {strengthLabels[strength]}
+      </p>
+    </div>
+  );
+};
 
 const Register: React.FC = () => {
   const initialValues: FormData = {
     displayName: "",
     email: "",
     password: "",
+    confirmPassword: "",
   };
 
-  const handleSubmit = async (values: FormData) => {
+  const handleSubmit = async (
+    values: FormData,
+    { setSubmitting, setErrors }: any
+  ) => {
     const { displayName, email, password } = values;
 
     const payload = {
-      displayName: displayName,
-      email: email,
-      password: password,
+      displayName,
+      email,
+      password,
     };
 
     try {
@@ -43,7 +81,7 @@ const Register: React.FC = () => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(payload),
-        credentials: "include",
+        credentials: "include", // Required to send cookies or authentication tokens
       });
 
       if (response.ok) {
@@ -51,11 +89,15 @@ const Register: React.FC = () => {
         alert("Registration successful! Token: " + data.token);
       } else {
         const errorData = await response.json();
-        alert("Registration failed: " + errorData.message);
+        setErrors({ email: errorData.message || "Something went wrong!" });
       }
     } catch (error) {
       console.error("Error during registration:", error);
-      alert("An error occurred during registration.");
+      setErrors({
+        email: "An unexpected error occurred. Please try again later.",
+      });
+    } finally {
+      setSubmitting(false);
     }
   };
 
@@ -64,7 +106,7 @@ const Register: React.FC = () => {
 
     if (response?.credential) {
       const payload = {
-        token: response.credential, 
+        token: response.credential,
       };
 
       try {
@@ -101,12 +143,13 @@ const Register: React.FC = () => {
         validationSchema={validationSchema}
         onSubmit={handleSubmit}
       >
-        {() => (
+        {({ values }) => (
           <Form className="bg-white p-8 rounded-lg shadow-md w-full max-w-md">
             <h2 className="text-2xl font-semibold text-gray-800 text-center mb-6">
               Sign Up
             </h2>
 
+            {/* Display Name */}
             <div className="mb-4">
               <Field
                 type="text"
@@ -121,6 +164,7 @@ const Register: React.FC = () => {
               />
             </div>
 
+            {/* Email */}
             <div className="mb-4">
               <Field
                 type="email"
@@ -135,7 +179,8 @@ const Register: React.FC = () => {
               />
             </div>
 
-            <div className="mb-6">
+            {/* Password */}
+            <div className="mb-4">
               <Field
                 type="password"
                 name="password"
@@ -144,6 +189,22 @@ const Register: React.FC = () => {
               />
               <ErrorMessage
                 name="password"
+                component="p"
+                className="text-red-500 text-sm mt-1"
+              />
+              <PasswordStrengthMeter password={values.password} />
+            </div>
+
+            {/* Confirm Password */}
+            <div className="mb-6">
+              <Field
+                type="password"
+                name="confirmPassword"
+                placeholder="Confirm Password"
+                className="w-full px-4 py-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:outline-none"
+              />
+              <ErrorMessage
+                name="confirmPassword"
                 component="p"
                 className="text-red-500 text-sm mt-1"
               />
@@ -156,13 +217,13 @@ const Register: React.FC = () => {
               Submit
             </button>
 
+            {/* Google Login */}
             <div className="mt-6">
               <GoogleLogin onSuccess={handleGoogleSignup} useOneTap />
             </div>
           </Form>
         )}
       </Formik>
-      {/* <GoogleSignUp /> */}
     </div>
   );
 };
