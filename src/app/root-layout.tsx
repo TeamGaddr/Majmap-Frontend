@@ -2,6 +2,7 @@
 import { Suspense, useEffect } from "react";
 import { ToastContainer } from "react-toastify";
 import { BrowserRouter, Route, Routes, useLocation } from "react-router-dom";
+import { GoogleOAuthProvider } from "@react-oauth/google"; // Import the provider
 
 // Layouts
 // Context and Components
@@ -10,6 +11,9 @@ import ContextComponent from "../components/context/context.component";
 // Pages
 // Static Routes
 import ROUTES from "src/shared/static/router.data";
+
+const clientId =
+  "760399119728-13dkae27q63j9sfppmfrfmg49tg46hkb.apps.googleusercontent.com";
 
 // Styles
 import "react-toastify/dist/ReactToastify.css";
@@ -21,7 +25,11 @@ import SignIn from "./pages/auth/signIn/SignIn.page";
 import Profile from "./pages/profile/Profile";
 import "src/global.css";
 import Signup from "./pages/auth/signup/Signup.page";
+<<<<<<< HEAD
 import WorkflowEditor from "./pages/workflow/demo.page";
+=======
+import Register from "./pages/auth/signup/Signup.page";
+>>>>>>> auth-milica
 
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -50,6 +58,7 @@ function RoutingComponent() {
           {/* Authentication routes */}
           <Route path={ROUTES.authentication.signup} element={<SignIn />} />      
           <Route path={ROUTES.authentication.signin} element={<Signup />} />
+          <Route path={ROUTES.authentication.register} element={<Register />} />
 
           {/* profile page */}
           <Route path={ROUTES.profile} element={<Profile />} />
@@ -65,6 +74,7 @@ function RoutingComponent() {
 
 export default function RootLayout() {
   return (
+    // <GoogleOAuthProvider clientId={clientId}>
     <ContextComponent>
       <BrowserRouter>
         <Suspense fallback={<div>Loading...</div>}>
@@ -74,5 +84,6 @@ export default function RootLayout() {
         <ToastContainer position="top-right" autoClose={5000} hideProgressBar />
       </BrowserRouter>
     </ContextComponent>
+    // </GoogleOAuthProvider>
   );
 }
