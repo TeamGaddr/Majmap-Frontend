@@ -54,10 +54,12 @@ function RoutingComponent() {
 
           {/* profile page */}
           <Route path={ROUTES.profile} element={<Profile />} />
-          <Route path={ROUTES.reactFlow} element={<ReactFlow />} />
         </Route>
+
+
         <Route element={<SidebarLayout />}>
-          <Route path={ROUTES.test} element={<WorkflowEditor />} />
+          <Route path={ROUTES.dashboard.root} element={<WorkflowEditor />} />
+          <Route path={ROUTES.dashboard.test} element={<ReactFlow />} />
         </Route>
       </Routes>
     </>

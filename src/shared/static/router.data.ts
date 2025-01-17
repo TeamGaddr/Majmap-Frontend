@@ -3,6 +3,13 @@ const ROUTES = {
     login: "/auth/login",
     register: "/auth/register",
   },
+  dashboard:{
+    root: "/dashboard",
+    workflow: "/dashboard/workflow",
+    test: "/dashboard/test",
+    users: "/dashboard/users",
+    settings: "/dashboard/settings",
+  },
   test: "/test",
   root: "/",
   about: "/about-us",
