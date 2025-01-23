@@ -1,164 +1,53 @@
+import React, { useState } from "react";
+import { UploadPopup } from "./UploadPopup";
+import { GenerateDiagramPopup } from "./GenerateDiagramPopup";
+import { SidebarIcon } from "./SidebarIcon";
+import { MoreActionsButton } from "./MoreActionsButton";
+import { Templates } from "./Templates";
+import Styling from "./Styling"; // Import the Styling component
+
 const ICONS = [
-  { src: 'src/assets/data.svg', label: 'Upload data' },
-  { src: 'src/assets/Group 1.svg', label: 'Generate diagram' },
-  { src: 'src/assets/template.svg', label: 'Templates' },
-  { src: 'src/assets/styling.svg', label: 'Styling' },
+  { src: 'src/assets/data.svg', label: 'Upload data', id: 'upload' },
+  { src: 'src/assets/Group 1.svg', label: 'Generate diagram', id: 'generate' },
+  { src: 'src/assets/template.svg', label: 'Templates', id: 'templates' },
+  { src: 'src/assets/styling.svg', label: 'Styling', id: 'styling' },
 ];
 
-const sectionStyle: React.CSSProperties = {
-  alignSelf: 'stretch',
-  justifyContent: 'flex-start',
-  alignItems: 'center',
-  gap: 10,
-  display: 'inline-flex',
-};
-
-const iconContainerStyle: React.CSSProperties = {
-  width: 53.1,
-  height: 52.2,
-  padding: 9,
-  borderRadius: 18,
-  overflow: 'hidden',
-  border: '0.90px #2E2E2E solid',
-  justifyContent: 'center',
-  alignItems: 'center',
-  gap: 9,
-  display: 'inline-flex',
-};
-
-const textStyle: React.CSSProperties = {
-  textAlign: 'center',  // Correct type
-  color: '#CFCECE',
-  fontSize: 12,
-  fontFamily: 'Lato',
-  fontWeight: '600',
-  wordWrap: 'break-word',
-};
-
 export default function Sidebar() {
+  const [activePopup, setActivePopup] = useState<string | null>(null);
+
+  const handleIconClick = (id: string) => {
+    setActivePopup(activePopup === id ? null : id);
+  };
+
   return (
-    <div
-      style={{
-        width: '100%',
-        height: '100%',
-        paddingBottom: 10,
-        background: '#1E1F1F',
-        borderRight: '1px #2E2E2E solid',
-        flexDirection: 'column',
-        justifyContent: 'flex-start',
-        alignItems: 'flex-start',
-        gap: 28,
-        display: 'inline-flex',
-      }}
-    >
-      <div
-        style={{
-          alignSelf: 'stretch',
-          paddingLeft: 10,
-          paddingRight: 10,
-          paddingTop: 12,
-          paddingBottom: 12,
-          borderBottom: '1px #2E2E2E solid',
-          textAlign: 'center' as const,  // Ensure correct type is inferred
-          color: 'white',
-          fontSize: 12,
-          fontFamily: 'Lato',
-          fontWeight: '600',
-        }}
-      >
-        Project MajMap
-      </div>
+    <>
+      <nav className="w-full h-full pb-2.5 bg-[#1E1F1F] border-r border-[#2E2E2E] flex flex-col items-start gap-7 relative">
+        <header className="w-full px-2.5 py-3 border-b border-[#2E2E2E] text-white text-xs font-semibold font-lato text-center">
+          Project MajMap
+        </header>
 
-      {ICONS.map(({ src, label }, index) => (
-        <div key={index} style={sectionStyle}>
-          <div
-            style={{
-              flex: '1 1 0',
-              flexDirection: 'column',
-              justifyContent: 'flex-start',
-              alignItems: 'center',
-              gap: 10,
-              display: 'inline-flex',
-            }}
-          >
-            <div style={iconContainerStyle}>
-              <img src={src} alt={label} style={{ width: '100%', height: '100%' }} />
-            </div>
-            <div style={textStyle}>{label}</div>
-          </div>
+        <div className="flex flex-col gap-7 w-full px-2.5">
+          {ICONS.map(({ src, label, id }) => (
+            <SidebarIcon
+              key={id}
+              src={src}
+              label={label}
+              onClick={() => handleIconClick(id)}
+            />
+          ))}
+          
+          <MoreActionsButton />
         </div>
-      ))}
+      </nav>
 
-      <div
-        style={{
-          alignSelf: 'stretch',
-          justifyContent: 'flex-start',
-          alignItems: 'center',
-          gap: 10,
-          display: 'inline-flex',
-        }}
-      >
-        <div
-          style={{
-            flex: '1 1 0',
-            flexDirection: 'column',
-            justifyContent: 'flex-start',
-            alignItems: 'center',
-            gap: 10,
-            display: 'inline-flex',
-          }}
-        >
-          <div
-            style={{
-              width: 53.1,
-              height: 52.2,
-              padding: 9,
-              borderRadius: 18,
-              overflow: 'hidden',
-              border: '0.90px #2E2E2E solid',
-              justifyContent: 'center',
-              alignItems: 'center',
-              gap: 9,
-              display: 'inline-flex',
-            }}
-          >
-            <div
-              style={{
-                justifyContent: 'flex-start',
-                alignItems: 'center',
-                gap: 3.6,
-                display: 'flex',
-              }}
-            >
-              <div
-                style={{
-                  width: 5.4,
-                  height: 5.4,
-                  background: '#E3E3E3',
-                  borderRadius: 9999,
-                }}
-              />
-              <div
-                style={{
-                  width: 5.4,
-                  height: 5.4,
-                  background: '#E3E3E3',
-                  borderRadius: 9999,
-                }}
-              />
-              <div
-                style={{
-                  width: 5.4,
-                  height: 5.4,
-                  background: '#E3E3E3',
-                  borderRadius: 9999,
-                }}
-              />
-            </div>
-          </div>
-          <div style={textStyle}>More actions</div>
-        </div>
+      {/* Popups outside of Sidebar */}
+      <div className="absolute top-0 left-full w-[300px]">
+        <UploadPopup isOpen={activePopup === 'upload'} />
+        <GenerateDiagramPopup isOpen={activePopup === 'generate'} />
+        <Templates isOpen={activePopup === 'templates'} />
+        <Styling isOpen={activePopup === 'styling'} />  {/* Add Styling popup here */}
       </div>
-    </div>
+    </>
   );
 }

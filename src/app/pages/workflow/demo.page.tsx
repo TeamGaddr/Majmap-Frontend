@@ -152,7 +152,8 @@ export default function WorkflowEditor() {
     <div style={{ width: "100vw", height: "100vh", display: "flex" }}>
       {/* Left Panel: React Flow and Add Node Button */}
       <div style={{ flex: 1, position: "relative" }}>
-        <button
+        {/* Commented out the Add Node Button */}
+        {/* <button
           onClick={addNode}
           style={{
             position: "absolute",
@@ -169,10 +170,11 @@ export default function WorkflowEditor() {
           }}
         >
           Add Node
-        </button>
+        </button> */}
 
         {/* React Flow Component */}
-        <ReactFlow
+        {/* Commented out React Flow and related components */}
+        {/* <ReactFlow
           nodes={nodes}
           edges={edges}
           onNodesChange={onNodesChange}
@@ -186,7 +188,7 @@ export default function WorkflowEditor() {
           <Controls />
           <MiniMap />
           <Background variant={BackgroundVariant.Dots} gap={12} size={1} />
-        </ReactFlow>
+        </ReactFlow> */}
       </div>
 
       {/* Right Panel: Node Editing */}
