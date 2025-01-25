@@ -4,7 +4,7 @@ import { GenerateDiagramPopup } from "./GenerateDiagramPopup";
 import { SidebarIcon } from "./SidebarIcon";
 import { MoreActionsButton } from "./MoreActionsButton";
 import { Templates } from "./Templates";
-import Styling from "./Styling"; // Import the Styling component
+import Styling from "./Styling"; 
 
 const ICONS = [
   { src: 'src/assets/data.svg', label: 'Upload data', id: 'upload' },

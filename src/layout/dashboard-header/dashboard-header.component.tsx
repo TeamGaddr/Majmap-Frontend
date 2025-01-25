@@ -40,8 +40,8 @@ export default function DashboardHeaderComponent() {
           <div
             className="flex-shrink-0"
             style={{
-              width: "40px",  // Increased size
-              height: "40px", // Increased size
+              width: "40px",  
+              height: "40px", 
               borderRadius: "50%",
               background: `url(${user.photoUrl || "path-to-default-photo"}) lightgray 0px -7.754px / 100% 150.027% no-repeat`,
             }}
