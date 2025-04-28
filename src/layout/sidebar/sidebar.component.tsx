@@ -1,53 +1,67 @@
-import React, { useState } from "react";
-import { UploadPopup } from "./UploadPopup";
-import { GenerateDiagramPopup } from "./GenerateDiagramPopup";
-import { SidebarIcon } from "./SidebarIcon";
-import { MoreActionsButton } from "./MoreActionsButton";
-import { Templates } from "./Templates";
-import Styling from "./Styling"; 
+import React from "react";
+import { useNavigate, useLocation } from "react-router-dom";
 
+// Use absolute paths from src/
 const ICONS = [
-  { src: 'src/assets/data.svg', label: 'Upload data', id: 'upload' },
-  { src: 'src/assets/Group 1.svg', label: 'Generate diagram', id: 'generate' },
-  { src: 'src/assets/template.svg', label: 'Templates', id: 'templates' },
-  { src: 'src/assets/styling.svg', label: 'Styling', id: 'styling' },
+  { src: '/assets/data.svg', label: 'Upload data', id: 'upload', path: '/dashboard/upload' },
+  { src: '/assets/Group 1.svg', label: 'Generate diagram', id: 'generate', path: '/dashboard/generate' },
+  { src: '/assets/template.svg', label: 'Templates', id: 'templates', path: '/dashboard/templates' },
+  { src: '/assets/workflow.svg', label: 'Workflow', id: 'workflow', path: '/dashboard/workflow' },
+  { src: '/assets/styling.svg', label: 'Create', id: 'create', path: '/dashboard/create' },
 ];
 
 export default function Sidebar() {
-  const [activePopup, setActivePopup] = useState<string | null>(null);
+  const navigate = useNavigate();
+  const location = useLocation();
 
-  const handleIconClick = (id: string) => {
-    setActivePopup(activePopup === id ? null : id);
-  };
+  const isActive = (path: string) => location.pathname === path;
 
   return (
-    <>
-      <nav className="w-full h-full pb-2.5 bg-[#1E1F1F] border-r border-[#2E2E2E] flex flex-col items-start gap-7 relative">
-        <header className="w-full px-2.5 py-3 border-b border-[#2E2E2E] text-white text-xs font-semibold font-lato text-center">
-          Project MajMap
-        </header>
-
-        <div className="flex flex-col gap-7 w-full px-2.5">
-          {ICONS.map(({ src, label, id }) => (
-            <SidebarIcon
+    <div className="flex h-full">
+      <nav className="w-[106px] h-full bg-[#1E1F1F] border-r border-[#2E2E2E] flex flex-col">
+        <div className="flex flex-col gap-4 pt-4 px-2">
+          {ICONS.map(({ src, label, id, path }) => (
+            <button
               key={id}
-              src={src}
-              label={label}
-              onClick={() => handleIconClick(id)}
-            />
+              onClick={() => navigate(path)}
+              className={`
+                w-15 h-15 p-2 rounded-2xl
+                flex flex-col items-center justify-center
+                border
+                ${isActive(path) 
+                  ? 'border-[rgba(186,134,252,1)] ' 
+                  : 'border-transparent hover:border-[rgba(186,134,252,1)] '
+                }
+                transition-colors
+              `}
+            >
+              <img 
+                src={src} 
+                alt={label} 
+                className="w-6 h-6"
+                onError={(e) => {
+                  const target = e.target as HTMLImageElement;
+                  target.onerror = null;
+                  target.src = '/assets/default-icon.svg';
+                }}
+              />
+              <span className="text-[#E2E2E2] text-[10px] mt-1">{label}</span>
+            </button>
           ))}
           
-          <MoreActionsButton />
+          <button className="
+            w-13 h-13 p-2 rounded-2xl
+            flex flex-col items-center justify-center
+            border border-transparent
+            hover:border-[rgba(186,134,252,1)]
+            transition-colors
+            mt-auto mb-2
+          ">
+            <span className="text-[#E2E2E2] text-xl">•••</span>
+            <span className="text-[#E2E2E2] text-[10px] mt-1">More actions</span>
+          </button>
         </div>
       </nav>
-
-      {/* Popups outside of Sidebar */}
-      <div className="absolute top-0 left-full w-[300px]">
-        <UploadPopup isOpen={activePopup === 'upload'} />
-        <GenerateDiagramPopup isOpen={activePopup === 'generate'} />
-        <Templates isOpen={activePopup === 'templates'} />
-        <Styling isOpen={activePopup === 'styling'} />  {/* Add Styling popup here */}
-      </div>
-    </>
+    </div>
   );
 }

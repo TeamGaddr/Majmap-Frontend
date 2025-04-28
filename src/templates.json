@@ -1,0 +1,446 @@
+[
+    {
+      "id": "1",
+      "type": "flowchart",
+      "name": "Business Model Canvas",
+      "description": "A strategic management template for developing new or documenting existing business models.",
+      "tags": ["business", "strategy", "model", "canvas"],
+      "nodes": [
+        {
+          "id": "bmc-1",
+          "position": { "x": 0, "y": 0 },
+          "data": { "label": "Customer Segments", "output": "", "color": "#F2FCE2", "shape": "rectangle" },
+          "style": { "backgroundColor": "#F2FCE2", "color": "black", "borderRadius": "8px" }
+        },
+        {
+          "id": "bmc-2",
+          "position": { "x": 250, "y": 0 },
+          "data": { "label": "Value Propositions", "output": "", "color": "#D3E4FD", "shape": "rectangle" },
+          "style": { "backgroundColor": "#D3E4FD", "color": "black", "borderRadius": "8px" }
+        },
+        {
+          "id": "bmc-3",
+          "position": { "x": 500, "y": 0 },
+          "data": { "label": "Channels", "output": "", "color": "#F2FCE2", "shape": "rectangle" },
+          "style": { "backgroundColor": "#F2FCE2", "color": "black", "borderRadius": "8px" }
+        },
+        {
+          "id": "bmc-4",
+          "position": { "x": 0, "y": 150 },
+          "data": { "label": "Revenue Streams", "output": "", "color": "#D3E4FD", "shape": "rectangle" },
+          "style": { "backgroundColor": "#D3E4FD", "color": "black", "borderRadius": "8px" }
+        },
+        {
+          "id": "bmc-5",
+          "position": { "x": 250, "y": 150 },
+          "data": { "label": "Key Resources", "output": "", "color": "#F2FCE2", "shape": "rectangle" },
+          "style": { "backgroundColor": "#F2FCE2", "color": "black", "borderRadius": "8px" }
+        },
+        {
+          "id": "bmc-6",
+          "position": { "x": 500, "y": 150 },
+          "data": { "label": "Key Activities", "output": "", "color": "#D3E4FD", "shape": "rectangle" },
+          "style": { "backgroundColor": "#D3E4FD", "color": "black", "borderRadius": "8px" }
+        },
+        {
+          "id": "bmc-7",
+          "position": { "x": 0, "y": 300 },
+          "data": { "label": "Cost Structure", "output": "", "color": "#F2FCE2", "shape": "rectangle" },
+          "style": { "backgroundColor": "#F2FCE2", "color": "black", "borderRadius": "8px" }
+        },
+        {
+          "id": "bmc-8",
+          "position": { "x": 500, "y": 300 },
+          "data": { "label": "Key Partnerships", "output": "", "color": "#D3E4FD", "shape": "rectangle" },
+          "style": { "backgroundColor": "#D3E4FD", "color": "black", "borderRadius": "8px" }
+        }
+      ]
+    },
+    {
+      "id": "2",
+      "type": "flowchart",
+      "name": "Standard Operating Procedure (SOP)",
+      "description": "A step-by-step guide to completing a specific task or process.",
+      "tags": ["process", "sop", "workflow", "steps"],
+      "nodes": [
+        {
+          "id": "sop-1",
+          "position": { "x": 0, "y": 0 },
+          "data": { "label": "Start", "output": "", "color": "#F2FCE2", "shape": "circle" },
+          "style": { "backgroundColor": "#F2FCE2", "color": "black", "borderRadius": "50%" }
+        },
+        {
+          "id": "sop-2",
+          "position": { "x": 150, "y": 0 },
+          "data": { "label": "Role Assignment", "output": "", "color": "#D3E4FD", "shape": "rectangle" },
+          "style": { "backgroundColor": "#D3E4FD", "color": "black", "borderRadius": "8px" }
+        },
+        {
+          "id": "sop-3",
+          "position": { "x": 300, "y": 0 },
+          "data": { "label": "Step 1", "output": "", "color": "#F2FCE2", "shape": "rectangle" },
+          "style": { "backgroundColor": "#F2FCE2", "color": "black", "borderRadius": "8px" }
+        },
+        {
+          "id": "sop-4",
+          "position": { "x": 450, "y": 0 },
+          "data": { "label": "Step 2", "output": "", "color": "#D3E4FD", "shape": "rectangle" },
+          "style": { "backgroundColor": "#D3E4FD", "color": "black", "borderRadius": "8px" }
+        },
+        {
+          "id": "sop-6",
+          "position": { "x": 450, "y": 150 },
+          "data": { "label": "Revise", "output": "", "color": "#D3E4FD", "shape": "rectangle" },
+          "style": { "backgroundColor": "#D3E4FD", "color": "black", "borderRadius": "8px" }
+        },
+        {
+          "id": "sop-7",
+          "position": { "x": 750, "y": 0 },
+          "data": { "label": "End", "output": "", "color": "#F2FCE2", "shape": "circle" },
+          "style": { "backgroundColor": "#F2FCE2", "color": "black", "borderRadius": "50%" }
+        }
+      ]
+    },
+    {
+      "id": "3",
+      "type": "flowchart",
+      "name": "Agile Sprint Planning",
+      "description": "A workflow for planning and executing agile sprints.",
+      "tags": ["agile", "sprint", "planning", "development"],
+      "nodes": [
+        {
+          "id": "asp-1",
+          "position": { "x": 0, "y": 0 },
+          "data": { "label": "Sprint Goal", "output": "", "color": "#F2FCE2", "shape": "rectangle" },
+          "style": { "backgroundColor": "#F2FCE2", "color": "black", "borderRadius": "8px" }
+        },
+        {
+          "id": "asp-2",
+          "position": { "x": 200, "y": 0 },
+          "data": { "label": "Task Backlog", "output": "", "color": "#D3E4FD", "shape": "rectangle" },
+          "style": { "backgroundColor": "#D3E4FD", "color": "black", "borderRadius": "8px" }
+        },
+        {
+          "id": "asp-3",
+          "position": { "x": 400, "y": 0 },
+          "data": { "label": "Daily Standup", "output": "", "color": "#F2FCE2", "shape": "rectangle" },
+          "style": { "backgroundColor": "#F2FCE2", "color": "black", "borderRadius": "8px" }
+        },
+        {
+          "id": "asp-4",
+          "position": { "x": 400, "y": 150 },
+          "data": { "label": "Sprint Review", "output": "", "color": "#D3E4FD", "shape": "rectangle" },
+          "style": { "backgroundColor": "#D3E4FD", "color": "black", "borderRadius": "8px" }
+        },
+        {
+          "id": "asp-5",
+          "position": { "x": 0, "y": 150 },
+          "data": { "label": "Retrospective", "output": "", "color": "#F2FCE2", "shape": "rectangle" },
+          "style": { "backgroundColor": "#F2FCE2", "color": "black", "borderRadius": "8px" }
+        }
+      ]
+    },
+    {
+      "id": "4",
+      "type": "flowchart",
+      "name": "Risk Management Matrix",
+      "description": "A workflow for identifying, assessing, and mitigating risks in a project or organization.",
+      "tags": ["risk", "management", "matrix", "project"],
+      "nodes": [
+        {
+          "id": "rmm-1",
+          "position": { "x": 0, "y": 0 },
+          "data": { "label": "Identity Risk", "output": "", "color": "#F2FCE2", "shape": "rectangle" },
+          "style": { "backgroundColor": "#F2FCE2", "color": "black", "borderRadius": "8px" }
+        },
+        {
+          "id": "rmm-2",
+          "position": { "x": 200, "y": 0 },
+          "data": { "label": "Probability/Impact Score", "output": "", "color": "#D3E4FD", "shape": "rectangle" },
+          "style": { "backgroundColor": "#D3E4FD", "color": "black", "borderRadius": "8px" }
+        },
+        {
+          "id": "rmm-3",
+          "position": { "x": 200, "y": 100 },
+          "data": { "label": "Urgent Mitigation", "output": "", "color": "#F2FCE2", "shape": "rectangle" },
+          "style": { "backgroundColor": "#F2FCE2", "color": "black", "borderRadius": "8px" }
+        },
+        {
+          "id": "rmm-4",
+          "position": { "x": 400, "y": 100 },
+          "data": { "label": "Monitor", "output": "", "color": "#D3E4FD", "shape": "rectangle" },
+          "style": { "backgroundColor": "#D3E4FD", "color": "black", "borderRadius": "8px" }
+        },
+        {
+          "id": "rmm-5",
+          "position": { "x": 200, "y": 200 },
+          "data": { "label": "Schedule Mitigation", "output": "", "color": "#F2FCE2", "shape": "rectangle" },
+          "style": { "backgroundColor": "#F2FCE2", "color": "black", "borderRadius": "8px" }
+        },
+        {
+          "id": "rmm-6",
+          "position": { "x": 200, "y": 300 },
+          "data": { "label": "Document Only", "output": "", "color": "#D3E4FD", "shape": "rectangle" },
+          "style": { "backgroundColor": "#D3E4FD", "color": "black", "borderRadius": "8px" }
+        }
+      ]
+    },
+    {
+      "id": "5",
+      "type": "flowchart",
+      "name": "Sales Funnel",
+      "description": "A visual representation of the customer journey from awareness to purchase and retention.",
+      "tags": ["sales", "marketing", "funnel", "customer"],
+      "nodes": [
+        {
+          "id": "sf-1",
+          "position": { "x": 0, "y": 0 },
+          "data": { "label": "Awareness", "output": "", "color": "#F2FCE2", "shape": "rectangle" },
+          "style": { "backgroundColor": "#F2FCE2", "color": "black", "borderRadius": "8px" }
+        },
+        {
+          "id": "sf-2",
+          "position": { "x": 150, "y": 0 },
+          "data": { "label": "Interest", "output": "", "color": "#D3E4FD", "shape": "rectangle" },
+          "style": { "backgroundColor": "#D3E4FD", "color": "black", "borderRadius": "8px" }
+        },
+        {
+          "id": "sf-3",
+          "position": { "x": 300, "y": 0 },
+          "data": { "label": "Consideration", "output": "", "color": "#F2FCE2", "shape": "rectangle" },
+          "style": { "backgroundColor": "#F2FCE2", "color": "black", "borderRadius": "8px" }
+        },
+        {
+          "id": "sf-4",
+          "position": { "x": 450, "y": 0 },
+          "data": { "label": "Decision", "output": "", "color": "#D3E4FD", "shape": "rectangle" },
+          "style": { "backgroundColor": "#D3E4FD", "color": "black", "borderRadius": "8px" }
+        },
+        {
+          "id": "sf-5",
+          "position": { "x": 600, "y": 0 },
+          "data": { "label": "Action", "output": "", "color": "#F2FCE2", "shape": "rectangle" },
+          "style": { "backgroundColor": "#F2FCE2", "color": "black", "borderRadius": "8px" }
+        },
+        {
+          "id": "sf-6",
+          "position": { "x": 300, "y": 150 },
+          "data": { "label": "Retention", "output": "", "color": "#D3E4FD", "shape": "rectangle" },
+          "style": { "backgroundColor": "#D3E4FD", "color": "black", "borderRadius": "8px" }
+        },
+        {
+          "id": "sf-7",
+          "position": { "x": 450, "y": 150 },
+          "data": { "label": "Follow-Up", "output": "", "color": "#F2FCE2", "shape": "rectangle" },
+          "style": { "backgroundColor": "#F2FCE2", "color": "black", "borderRadius": "8px" }
+        }
+      ]
+    },
+    {
+      "id": "6",
+      "type": "flowchart",
+      "name": "Customer Journey Map",
+      "description": "A visual representation of the customer journey from awareness to advocacy.",
+      "tags": ["customer", "journey", "map", "marketing"],
+      "nodes": [
+        {
+          "id": "cjm-1",
+          "position": { "x": 0, "y": 0 },
+          "data": { "label": "Awareness", "output": "", "color": "#F2FCE2", "shape": "rectangle" },
+          "style": { "backgroundColor": "#F2FCE2", "color": "black", "borderRadius": "8px" }
+        },
+        {
+          "id": "cjm-2",
+          "position": { "x": 200, "y": 0 },
+          "data": { "label": "Research", "output": "", "color": "#D3E4FD", "shape": "rectangle" },
+          "style": { "backgroundColor": "#D3E4FD", "color": "black", "borderRadius": "8px" }
+        },
+        {
+          "id": "cjm-3",
+          "position": { "x": 400, "y": 0 },
+          "data": { "label": "Purchase", "output": "", "color": "#F2FCE2", "shape": "rectangle" },
+          "style": { "backgroundColor": "#F2FCE2", "color": "black", "borderRadius": "8px" }
+        },
+        {
+          "id": "cjm-4",
+          "position": { "x": 600, "y": 0 },
+          "data": { "label": "Support", "output": "", "color": "#D3E4FD", "shape": "rectangle" },
+          "style": { "backgroundColor": "#D3E4FD", "color": "black", "borderRadius": "8px" }
+        },
+        {
+          "id": "cjm-5",
+          "position": { "x": 800, "y": 0 },
+          "data": { "label": "Advocacy", "output": "", "color": "#F2FCE2", "shape": "rectangle" },
+          "style": { "backgroundColor": "#F2FCE2", "color": "black", "borderRadius": "8px" }
+        }
+      ]
+    },
+    {
+      "id": "7",
+      "type": "flowchart",
+      "name": "DevOps Pipeline",
+      "description": "A workflow for continuous integration and deployment in a DevOps environment.",
+      "tags": ["devops", "pipeline", "ci/cd", "deployment"],
+      "nodes": [
+        {
+          "id": "dp-1",
+          "position": { "x": 0, "y": 0 },
+          "data": { "label": "Code Commit", "output": "", "color": "#F2FCE2", "shape": "rectangle" },
+          "style": { "backgroundColor": "#F2FCE2", "color": "black", "borderRadius": "8px" }
+        },
+        {
+          "id": "dp-2",
+          "position": { "x": 150, "y": 0 },
+          "data": { "label": "Build", "output": "", "color": "#D3E4FD", "shape": "rectangle" },
+          "style": { "backgroundColor": "#D3E4FD", "color": "black", "borderRadius": "8px" }
+        },
+        {
+          "id": "dp-3",
+          "position": { "x": 300, "y": 0 },
+          "data": { "label": "Test", "output": "", "color": "#F2FCE2", "shape": "rectangle" },
+          "style": { "backgroundColor": "#F2FCE2", "color": "black", "borderRadius": "8px" }
+        },
+        {
+          "id": "dp-4",
+          "position": { "x": 450, "y": 0 },
+          "data": { "label": "Deploy", "output": "", "color": "#D3E4FD", "shape": "rectangle" },
+          "style": { "backgroundColor": "#D3E4FD", "color": "black", "borderRadius": "8px" }
+        },
+        {
+          "id": "dp-5",
+          "position": { "x": 600, "y": 0 },
+          "data": { "label": "Monitor", "output": "", "color": "#F2FCE2", "shape": "rectangle" },
+          "style": { "backgroundColor": "#F2FCE2", "color": "black", "borderRadius": "8px" }
+        },
+        {
+          "id": "dp-6",
+          "position": { "x": 300, "y": 150 },
+          "data": { "label": "Alert Developer", "output": "", "color": "#D3E4FD", "shape": "rectangle" },
+          "style": { "backgroundColor": "#D3E4FD", "color": "black", "borderRadius": "8px" }
+        }
+      ]
+    },
+    {
+      "id": "8",
+      "type": "flowchart",
+      "name": "API Integration Workflow",
+      "description": "A workflow for integrating APIs between different systems.",
+      "tags": ["api", "integration", "workflow", "system"],
+      "nodes": [
+        {
+          "id": "api-1",
+          "position": { "x": 0, "y": 0 },
+          "data": { "label": "System A", "output": "", "color": "#F2FCE2", "shape": "rectangle" },
+          "style": { "backgroundColor": "#F2FCE2", "color": "black", "borderRadius": "8px" }
+        },
+        {
+          "id": "api-2",
+          "position": { "x": 150, "y": 0 },
+          "data": { "label": "API Gateway", "output": "", "color": "#D3E4FD", "shape": "rectangle" },
+          "style": { "backgroundColor": "#D3E4FD", "color": "black", "borderRadius": "8px" }
+        },
+        {
+          "id": "api-3",
+          "position": { "x": 300, "y": 0 },
+          "data": { "label": "Auth", "output": "", "color": "#F2FCE2", "shape": "rectangle" },
+          "style": { "backgroundColor": "#F2FCE2", "color": "black", "borderRadius": "8px" }
+        },
+        {
+          "id": "api-4",
+          "position": { "x": 450, "y": 0 },
+          "data": { "label": "Data Sync", "output": "", "color": "#D3E4FD", "shape": "rectangle" },
+          "style": { "backgroundColor": "#D3E4FD", "color": "black", "borderRadius": "8px" }
+        },
+        {
+          "id": "api-5",
+          "position": { "x": 600, "y": 0 },
+          "data": { "label": "System B", "output": "", "color": "#F2FCE2", "shape": "rectangle" },
+          "style": { "backgroundColor": "#F2FCE2", "color": "black", "borderRadius": "8px" }
+        },
+        {
+          "id": "api-6",
+          "position": { "x": 450, "y": 150 },
+          "data": { "label": "Retry/Log", "output": "", "color": "#D3E4FD", "shape": "rectangle" },
+          "style": { "backgroundColor": "#D3E4FD", "color": "black", "borderRadius": "8px" }
+        }
+      ]
+    },
+    {
+      "id": "9",
+      "type": "flowchart",
+      "name": "Employee Onboarding",
+      "description": "A workflow for onboarding new employees into the organization.",
+      "tags": ["hr", "onboarding", "employee", "workflow"],
+      "nodes": [
+        {
+          "id": "hr-1",
+          "position": { "x": 0, "y": 0 },
+          "data": { "label": "Offer Accepted", "output": "", "color": "#F2FCE2", "shape": "rectangle" },
+          "style": { "backgroundColor": "#F2FCE2", "color": "black", "borderRadius": "8px" }
+        },
+        {
+          "id": "hr-2",
+          "position": { "x": 200, "y": 0 },
+          "data": { "label": "HR Paperwork", "output": "", "color": "#D3E4FD", "shape": "rectangle" },
+          "style": { "backgroundColor": "#D3E4FD", "color": "black", "borderRadius": "8px" }
+        },
+        {
+          "id": "hr-3",
+          "position": { "x": 200, "y": 100 },
+          "data": { "label": "IT Setup", "output": "", "color": "#F2FCE2", "shape": "rectangle" },
+          "style": { "backgroundColor": "#F2FCE2", "color": "black", "borderRadius": "8px" }
+        },
+        {
+          "id": "hr-4",
+          "position": { "x": 350, "y": 100 },
+          "data": { "label": "Training", "output": "", "color": "#D3E4FD", "shape": "rectangle" },
+          "style": { "backgroundColor": "#D3E4FD", "color": "black", "borderRadius": "8px" }
+        },
+        {
+          "id": "hr-5",
+          "position": { "x": 500, "y": 100 },
+          "data": { "label": "Role Tasks", "output": "", "color": "#F2FCE2", "shape": "rectangle" },
+          "style": { "backgroundColor": "#F2FCE2", "color": "black", "borderRadius": "8px" }
+        },
+        {
+          "id": "hr-6",
+          "position": { "x": 650, "y": 100 },
+          "data": { "label": "30-Day Review", "output": "", "color": "#D3E4FD", "shape": "rectangle" },
+          "style": { "backgroundColor": "#D3E4FD", "color": "black", "borderRadius": "8px" }
+        }
+      ]
+    },
+    {
+      "id": "10",
+      "type": "flowchart",
+      "name": "Patient Admission Process",
+      "description": "A workflow for admitting patients into a healthcare facility.",
+      "tags": ["healthcare", "patient", "admission", "process"],
+      "nodes": [
+        {
+          "id": "pa-1",
+          "position": { "x": 0, "y": 0 },
+          "data": { "label": "Registration", "output": "", "color": "#F2FCE2", "shape": "rectangle" },
+          "style": { "backgroundColor": "#F2FCE2", "color": "black", "borderRadius": "8px" }
+        },
+        {
+          "id": "pa-2",
+          "position": { "x": 200, "y": 0 },
+          "data": { "label": "Triage", "output": "", "color": "#D3E4FD", "shape": "rectangle" },
+          "style": { "backgroundColor": "#D3E4FD", "color": "black", "borderRadius": "8px" }
+        },
+        {
+          "id": "pa-3",
+          "position": { "x": 350, "y": -50 },
+          "data": { "label": "Immediate Care", "output": "", "color": "#F2FCE2", "shape": "rectangle" },
+          "style": { "backgroundColor": "#F2FCE2", "color": "black", "borderRadius": "8px" }
+        },
+        {
+          "id": "pa-4",
+          "position": { "x": 350, "y": 50 },
+          "data": { "label": "Scheduled Care", "output": "", "color": "#D3E4FD", "shape": "rectangle" },
+          "style": { "backgroundColor": "#D3E4FD", "color": "black", "borderRadius": "8px" }
+        }
+      ]
+    }
+  ]

@@ -1,5 +1,6 @@
 import React, { useCallback, useState } from "react";
-import ReactFlow, {
+import {
+  ReactFlow,
   MiniMap,
   Controls,
   Background,
@@ -10,9 +11,10 @@ import ReactFlow, {
   Connection,
   BackgroundVariant,
 } from "reactflow";
+import { Templates } from "src/layout/sidebar/Templates";
 import "reactflow/dist/style.css";
 
-// Initial nodes and edges setup
+// Initial nodes and edges for the workflow
 const initialNodes = [
   {
     id: "1",
@@ -34,30 +36,20 @@ export default function WorkflowEditor() {
   const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes);
   const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges);
   const [selectedNode, setSelectedNode] = useState<Node | null>(null);
-  const [nodeLabel, setNodeLabel] = useState<string>(""); // New state to manage the label input
+  const [nodeLabel, setNodeLabel] = useState<string>("");
+  const [isTemplatesOpen, setIsTemplatesOpen] = useState(false);
 
-  // Handle edge connections
+  // Handle connection between nodes
   const onConnect = useCallback(
     (params: Connection) => setEdges((eds) => addEdge(params, eds)),
     [setEdges]
   );
 
-  // Add new node with random position
-  const addNode = useCallback(() => {
-    const newNode = {
-      id: (nodes.length + 1).toString(),
-      position: { x: Math.random() * 400, y: Math.random() * 400 },
-      data: { label: `Node ${nodes.length + 1}`, output: `Output ${nodes.length + 1}`, color: "#33A1FF", shape: "rectangle" },
-      style: { backgroundColor: "#33A1FF", color: "white", borderRadius: "8px" },
-    };
-    setNodes((nds) => [...nds, newNode]);
-  }, [nodes, setNodes]);
-
-  // Handle node double-click to edit label
+  // Handle double-click on a node to edit it
   const handleNodeDoubleClick = useCallback(
     (event: React.MouseEvent, node: Node) => {
       setSelectedNode(node);
-      setNodeLabel(node.data.label); // Set the initial label into the input
+      setNodeLabel(node.data.label);
     },
     []
   );
@@ -86,7 +78,7 @@ export default function WorkflowEditor() {
   const updateNodeLabel = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
       const label = e.target.value;
-      setNodeLabel(label); // Update the local state for the input
+      setNodeLabel(label);
       if (selectedNode) {
         setNodes((nds) =>
           nds.map((n) =>
@@ -116,7 +108,6 @@ export default function WorkflowEditor() {
           height = "100px";
           borderRadius = "0%";
         } else if (shape === "triangle") {
-          // To create a triangle, we use CSS borders
           backgroundColor = "transparent";
           width = "0";
           height = "0";
@@ -148,33 +139,162 @@ export default function WorkflowEditor() {
     [selectedNode, setNodes]
   );
 
+  // Handle template selection
+  const handleTemplateSelect = useCallback((templateNodes: any[]) => {
+    const newNodes = templateNodes.map((node, index) => ({
+      ...node,
+      id: `template-${Date.now()}-${index}`,
+    }));
+    setNodes(newNodes);
+    setIsTemplatesOpen(false);
+  }, [setNodes]);
+
+  // Save the current workflow as a template
+  const saveTemplate = async () => {
+    const templateData = {
+      name: "My Template",
+      description: "A description for the template",
+      type: "flowchart",
+      nodes: nodes,
+      edges: edges,
+    };
+
+    try {
+      const response = await fetch("/api/workflows/save-template", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("token")}`, // Assuming you store the token in localStorage
+        },
+        body: JSON.stringify(templateData),
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to save template");
+      }
+
+      const data = await response.json();
+      console.log("Template saved successfully:", data);
+    } catch (error) {
+      console.error("Error saving template:", error);
+    }
+  };
+
+  // Add a new node
+  const addNode = () => {
+    const newNode = {
+      id: `node-${Date.now()}`,
+      position: { x: Math.random() * 500, y: Math.random() * 500 },
+      data: { label: "New Node", output: "Output", color: "#8645FF", shape: "rectangle" },
+      style: { backgroundColor: "#8645FF", color: "white", borderRadius: "8px" },
+    };
+    setNodes((nds) => nds.concat(newNode));
+  };
+
+  // Remove the selected node
+  const removeNode = () => {
+    if (selectedNode) {
+      setNodes((nds) => nds.filter((n) => n.id !== selectedNode.id));
+      setEdges((eds) => eds.filter((e) => e.source !== selectedNode.id && e.target !== selectedNode.id));
+      setSelectedNode(null);
+    }
+  };
+
   return (
-    <div style={{ width: "100vw", height: "100vh", display: "flex" }}>
-      {/* Left Panel: React Flow and Add Node Button */}
-      <div style={{ flex: 1, position: "relative" }}>
-        {/* Commented out the Add Node Button */}
-        {/* <button
+    <div className="flex h-screen w-screen bg-[#121212]">
+      {/* Sidebar */}
+      <div
+        style={{
+          width: "250px",
+          padding: "20px",
+          background: "#1E1F1F", 
+          borderRight: "1px solid #2E2E2E", 
+          boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
+          height: "60vh",
+          position: "fixed",
+          right: 0, 
+          zIndex: 1,
+        }}
+      >
+        <button
+          onClick={() => setIsTemplatesOpen(!isTemplatesOpen)}
+          className="w-full mb-4 px-4 py-2 bg-[#8645FF] text-white rounded-lg hover:bg-[#6a3cc7] transition-colors"
+        >
+          Templates
+        </button>
+
+        <button
+          onClick={saveTemplate}
+          className="w-full mb-4 px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition-colors"
+        >
+          Save Template
+        </button>
+
+        <button
           onClick={addNode}
-          style={{
-            position: "absolute",
-            top: 20,
-            left: 20,
-            zIndex: 1000,
-            padding: "10px 20px",
-            background: "#007bff",
-            color: "white",
-            border: "none",
-            borderRadius: "5px",
-            cursor: "pointer",
-            fontSize: "16px",
-          }}
+          className="w-full mb-4 px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors"
         >
           Add Node
-        </button> */}
+        </button>
 
-        {/* React Flow Component */}
-        {/* Commented out React Flow and related components */}
-        {/* <ReactFlow
+        <button
+          onClick={removeNode}
+          className="w-full mb-4 px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-colors"
+        >
+          Remove Node
+        </button>
+
+        {selectedNode ? (
+          <>
+            <h3 className="text-lg font-semibold mb-4 text-[#E2E2E2]">Edit Node: {selectedNode.data.label}</h3>
+            <div className="space-y-4">
+              <div>
+                <label className="block text-sm font-medium mb-1 text-[#E2E2E2]">
+                  Label:
+                  <input
+                    type="text"
+                    value={nodeLabel}
+                    onChange={updateNodeLabel}
+                    className="mt-1 block w-full rounded-md bg-[#2A2B2B] border-[#2E2E2E] text-white focus:border-[#8645FF] focus:ring-[#8645FF] transition-colors"
+                  />
+                </label>
+              </div>
+              <div>
+                <label className="block text-sm font-medium mb-1 text-[#E2E2E2]">
+                  Color:
+                  <input
+                    type="color"
+                    value={selectedNode.data.color}
+                    onChange={(e) => updateNodeColor(e.target.value)}
+                    className="mt-1 block w-full h-10 rounded-md border-[#2E2E2E] cursor-pointer"
+                  />
+                </label>
+              </div>
+              <div>
+                <label className="block text-sm font-medium mb-1 text-[#E2E2E2]">
+                  Shape:
+                  <select
+                    value={selectedNode.data.shape}
+                    onChange={(e) => updateNodeShape(e.target.value)}
+                    className="mt-1 block w-full rounded-md bg-[#2A2B2B] border-[#2E2E2E] text-white focus:border-[#8645FF] focus:ring-[#8645FF] transition-colors"
+                  >
+                    <option value="rectangle">Rectangle</option>
+                    <option value="circle">Circle</option>
+                    <option value="square">Square</option>
+                    <option value="triangle">Triangle</option>
+                  </select>
+                </label>
+              </div>
+            </div>
+          </>
+        ) : (
+          <p className="text-[#E2E2E2]">Select a node to edit</p>
+        )}
+      </div>
+
+      {/* React Flow Pane */}
+      <div className="flex-1 relative" style={{ width: "calc(100% - 250px)", height: "88vh", marginLeft: "100px" }}>
+        <ReactFlow
           nodes={nodes}
           edges={edges}
           onNodesChange={onNodesChange}
@@ -183,72 +303,19 @@ export default function WorkflowEditor() {
           onNodeDoubleClick={handleNodeDoubleClick}
           fitView
           fitViewOptions={{ minZoom: 0.5, maxZoom: 2 }}
-          style={{ background: "#f4f4f4", borderRadius: "10px", height: "100%" }}
-        >
+          style={{ background: "#121212", width: "100%", height: "100%" }}>
           <Controls />
           <MiniMap />
           <Background variant={BackgroundVariant.Dots} gap={12} size={1} />
-        </ReactFlow> */}
+        </ReactFlow>
       </div>
 
-      {/* Right Panel: Node Editing */}
-      <div
-        style={{
-          width: "300px",
-          padding: "20px",
-          background: "#fff",
-          borderLeft: "1px solid #ccc",
-          boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
-          height: "100vh",
-          position: "absolute",
-          right: 0,
-        }}
-      >
-        {selectedNode ? (
-          <>
-            <h3>Edit Node: {selectedNode.data.label}</h3>
-            <div>
-              <label>
-                Label:
-                <input
-                  type="text"
-                  value={nodeLabel} // Bind input value to local state
-                  onChange={updateNodeLabel}
-                  style={{ width: "100%", padding: "8px", marginBottom: "10px" }}
-                />
-              </label>
-            </div>
-            <div>
-              <label>
-                Color:
-                <input
-                  type="color"
-                  value={selectedNode.data.color}
-                  onChange={(e) => updateNodeColor(e.target.value)}
-                  style={{ width: "100%", padding: "8px", marginBottom: "10px" }}
-                />
-              </label>
-            </div>
-            <div>
-              <label>
-                Shape:
-                <select
-                  value={selectedNode.data.shape}
-                  onChange={(e) => updateNodeShape(e.target.value)}
-                  style={{ width: "100%", padding: "8px", marginBottom: "10px" }}
-                >
-                  <option value="rectangle">Rectangle</option>
-                  <option value="circle">Circle</option>
-                  <option value="square">Square</option>
-                  <option value="triangle">Triangle</option>
-                </select>
-              </label>
-            </div>
-          </>
-        ) : (
-          <p>Select a node to edit</p>
-        )}
-      </div>
+      {/* Templates Popup */}
+      {isTemplatesOpen && (
+        <div className="absolute top-0 left-0 w-full h-full flex items-center justify-center z-50">
+          <Templates isOpen={isTemplatesOpen} onTemplateSelect={handleTemplateSelect} />
+        </div>
+      )}
     </div>
   );
 }

@@ -1,12 +1,17 @@
-import React from "react";
+import React, { useState } from "react";
 import { Formik, Field, Form, ErrorMessage } from "formik";
+import { useNavigate } from "react-router-dom";
 import * as Yup from "yup";
 import zxcvbn from "zxcvbn";
-import { GoogleLogin } from "@react-oauth/google";
+import { FcGoogle } from "react-icons/fc";
+import { FaGithub, FaEye, FaEyeSlash } from "react-icons/fa";
 import { toast } from "react-toastify";
+import ROUTES from "src/shared/static/router.data";
+import Icon1 from "src/assets/icon1.svg";
+import Icon2 from "src/assets/icon2.svg";
 
 const validationSchema = Yup.object({
-  displayName: Yup.string().required("Display Name is required"),
+  displayName: Yup.string().required("Full name is required"),
   email: Yup.string()
     .email("Invalid email format")
     .required("Email is required"),
@@ -14,7 +19,7 @@ const validationSchema = Yup.object({
     .min(6, "Password must be at least 6 characters")
     .required("Password is required"),
   confirmPassword: Yup.string()
-    .oneOf([Yup.ref("password"), null], "Passwords must match")
+    .oneOf([Yup.ref("password"), undefined], "Passwords must match")
     .required("Confirm Password is required"),
 });
 
@@ -26,7 +31,9 @@ interface FormData {
 }
 
 const PasswordStrengthMeter = ({ password }: { password: string }) => {
-  const testResult = zxcvbn(password || "");
+  if (!password) return null;
+
+  const testResult = zxcvbn(password);
   const strengthLabels = ["Weak", "Fair", "Good", "Strong", "Very Strong"];
   const strength = testResult.score;
 
@@ -55,7 +62,42 @@ const PasswordStrengthMeter = ({ password }: { password: string }) => {
   );
 };
 
-const Register: React.FC = () => {
+const PasswordInputWithToggle = ({
+  field,
+  placeholder,
+  showPassword,
+  togglePasswordVisibility,
+}: {
+  field: any;
+  form: any;
+  placeholder: string;
+  showPassword: boolean;
+  togglePasswordVisibility: () => void;
+}) => (
+  <div className="relative w-full">
+    <input
+      type={showPassword ? "text" : "password"}
+      placeholder={placeholder}
+      className="w-full px-3.5 py-2.5 bg-black rounded-lg outline outline-1 outline-neutral-200 text-white text-base font-normal pr-10"
+      {...field}
+    />
+    <button
+      type="button"
+      className="absolute right-3 top-1/2 transform -translate-y-1/2 text-neutral-400 hover:text-white"
+      onClick={togglePasswordVisibility}
+    >
+      {showPassword ? <FaEyeSlash size={18} /> : <FaEye size={18} />}
+    </button>
+  </div>
+);
+
+const Signup: React.FC = () => {
+  const navigate = useNavigate();
+  const [isLoading, setIsLoading] = useState(false);
+  const [isGoogleLoading, setIsGoogleLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+
   const initialValues: FormData = {
     displayName: "",
     email: "",
@@ -67,6 +109,7 @@ const Register: React.FC = () => {
     values: FormData,
     { setSubmitting, setErrors }: any
   ) => {
+    setIsLoading(true);
     const { displayName, email, password } = values;
 
     const payload = {
@@ -76,156 +119,249 @@ const Register: React.FC = () => {
     };
 
     try {
-      const response = await fetch("http://localhost:3000/signup", {
+      // First, register the user
+      const registerResponse = await fetch("http://localhost:3000/signup", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(payload),
-        credentials: "include", // Required to send cookies or authentication tokens
+        credentials: "include",
       });
 
-      if (response.ok) {
-        toast.success("Registration successful!");
-      } else {
-        const errorData = await response.json();
-        toast.error(errorData.error);
+      if (!registerResponse.ok) {
+        const errorData = await registerResponse.json();
+        throw new Error(errorData.error || "Registration failed");
       }
+
+      // If registration is successful, automatically log in
+      const loginResponse = await fetch("http://localhost:3000/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email, password }),
+        credentials: "include",
+      });
+
+      if (!loginResponse.ok) {
+        throw new Error("Auto-login failed after registration");
+      }
+
+      const loginData = await loginResponse.json();
+      
+      // Store tokens
+      localStorage.setItem("accessToken", loginData.accessToken);
+      localStorage.setItem("refreshToken", loginData.refreshToken);
+
+      toast.success("Account created and logged in successfully!");
+      navigate(ROUTES.user.profile);
     } catch (error) {
-      toast.error("Registration failed: " + error);
+      toast.error(error instanceof Error ? error.message : "Registration failed");
       setErrors({
         email: "An unexpected error occurred. Please try again later.",
       });
     } finally {
+      setIsLoading(false);
       setSubmitting(false);
     }
   };
 
-  const handleGoogleSignup = async (response: any) => {
-    console.log("Google response:", response);
-
-    if (response?.credential) {
-      const payload = {
-        token: response.credential,
-      };
-
-      try {
-        const res = await fetch("http://localhost:3000/auth/google/register", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(payload),
-          credentials: "include",
-        });
-
-        if (res.ok) {
-          const data = await res.json();
-          alert("Google registration successful! Token: " + data.token);
-        } else {
-          const errorData = await res.json();
-          alert("Google registration failed: " + errorData.message);
-        }
-      } catch (error) {
-        console.error("Error during Google registration:", error);
-        alert("An error occurred during Google registration.");
-      }
-    } else {
-      console.error("No credential found in Google response.");
-      alert("Google registration failed: No credential found.");
-    }
+  const handleGoogleSignup = () => {
+    setIsGoogleLoading(true);
+    window.location.href = "http://localhost:3000/auth/google";
   };
 
   return (
-    <div className="flex justify-center items-center min-h-screen bg-gray-100">
-      <Formik
-        initialValues={initialValues}
-        validationSchema={validationSchema}
-        onSubmit={handleSubmit}
-      >
-        {({ values }) => (
-          <Form className="bg-white p-8 rounded-lg shadow-md w-full max-w-md">
-            <h2 className="text-2xl font-semibold text-gray-800 text-center mb-6">
-              Sign Up
-            </h2>
+    <div className="w-full min-h-screen bg-neutral-900 flex flex-col">
+      {/* Header */}
+      <div className="w-full px-12 py-6 bg-neutral-900 shadow-[0px_4px_8px_0px_rgba(0,0,0,0.20)] outline outline-1 outline-offset-[-1px] outline-black flex justify-start items-center gap-12">
+        <div className="flex-1 flex justify-center items-center gap-2.5">
+          <div className="flex items-center gap-4">
+            <img src={Icon1} alt="Logo part 1" className="h-10" />
+            <img src={Icon2} alt="Logo part 2" className="h-10" />
+          </div>
+        </div>
+      </div>
 
-            {/* Display Name */}
-            <div className="mb-4">
-              <Field
-                type="text"
-                name="displayName"
-                placeholder="Display Name"
-                className="w-full px-4 py-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:outline-none"
-              />
-              <ErrorMessage
-                name="displayName"
-                component="p"
-                className="text-red-500 text-sm mt-1"
-              />
+      {/* Signup Form - Flex-grow to take remaining space */}
+      <div className="flex-grow flex items-center justify-center py-10 px-4 sm:px-6 lg:px-8">
+        <div className="w-full max-w-md">
+          <div className="w-[560px] p-6 flex flex-col justify-center items-center gap-2">
+            <div className="w-full flex justify-center items-center gap-2.5">
+              <h1 className="flex-1 text-left text-white text-3xl font-bold">
+                Sign Up
+              </h1>
+            </div>
+            <div className="w-full pt-2 flex justify-center items-center gap-2.5 mb-6">
+              <p className="flex-1 text-left text-white text-2xl font-normal">
+                Lorem Ipsum is simply dummy text of the
+              </p>
             </div>
 
-            {/* Email */}
-            <div className="mb-4">
-              <Field
-                type="email"
-                name="email"
-                placeholder="Email"
-                className="w-full px-4 py-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:outline-none"
-              />
-              <ErrorMessage
-                name="email"
-                component="p"
-                className="text-red-500 text-sm mt-1"
-              />
-            </div>
-
-            {/* Password */}
-            <div className="mb-4">
-              <Field
-                type="password"
-                name="password"
-                placeholder="Password"
-                className="w-full px-4 py-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:outline-none"
-              />
-              <ErrorMessage
-                name="password"
-                component="p"
-                className="text-red-500 text-sm mt-1"
-              />
-              <PasswordStrengthMeter password={values.password} />
-            </div>
-
-            {/* Confirm Password */}
-            <div className="mb-6">
-              <Field
-                type="password"
-                name="confirmPassword"
-                placeholder="Confirm Password"
-                className="w-full px-4 py-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:outline-none"
-              />
-              <ErrorMessage
-                name="confirmPassword"
-                component="p"
-                className="text-red-500 text-sm mt-1"
-              />
-            </div>
-
-            <button
-              type="submit"
-              className="w-full px-4 py-3 bg-blue-500 text-white font-semibold rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            <Formik
+              initialValues={initialValues}
+              validationSchema={validationSchema}
+              onSubmit={handleSubmit}
             >
-              Submit
-            </button>
+              {({ values }) => (
+                <Form className="w-full space-y-4">
+                  {/* Full Name */}
+                  <div className="w-full flex flex-col justify-center items-center">
+                    <Field
+                      name="displayName"
+                      type="text"
+                      placeholder="Full name"
+                      className="w-full px-3.5 py-2.5 bg-black rounded-lg outline outline-1 outline-neutral-200 text-white text-base font-normal"
+                    />
+                    <ErrorMessage
+                      name="displayName"
+                      component="p"
+                      className="text-red-600 text-sm mt-1 w-full text-left"
+                    />
+                  </div>
 
-            {/* Google Login */}
-            <div className="mt-6">
-              <GoogleLogin onSuccess={handleGoogleSignup} useOneTap />
+                  {/* Email */}
+                  <div className="w-full pt-4 flex flex-col justify-center items-center">
+                    <Field
+                      name="email"
+                      type="email"
+                      placeholder="Email"
+                      className="w-full px-3.5 py-2.5 bg-black rounded-lg outline outline-1 outline-neutral-200 text-white text-base font-normal"
+                    />
+                    <ErrorMessage
+                      name="email"
+                      component="p"
+                      className="text-red-600 text-sm mt-1 w-full text-left"
+                    />
+                  </div>
+
+                  {/* Password */}
+                  <div className="w-full pt-4 flex flex-col justify-center items-center">
+                    <Field
+                      name="password"
+                    >
+                      {({ field, form }: { field: any; form: any }) => (
+                        <PasswordInputWithToggle
+                          field={field}
+                          form={form}
+                          placeholder="Password"
+                          showPassword={showPassword}
+                          togglePasswordVisibility={() => setShowPassword(!showPassword)}
+                        />
+                      )}
+                    </Field>
+                    <ErrorMessage
+                      name="password"
+                      component="p"
+                      className="text-red-600 text-sm mt-1 w-full text-left"
+                    />
+                    <PasswordStrengthMeter password={values.password} />
+                  </div>
+
+                  {/* Confirm Password */}
+                  <div className="w-full pt-4 flex flex-col justify-center items-center">
+                    <Field
+                      name="confirmPassword"
+                    >
+                      {({ field, form }: { field: any; form: any }) => (
+                        <PasswordInputWithToggle
+                          field={field}
+                          form={form}
+                          placeholder="Confirm Password"
+                          showPassword={showConfirmPassword}
+                          togglePasswordVisibility={() => setShowConfirmPassword(!showConfirmPassword)}
+                        />
+                      )}
+                    </Field>
+                    <ErrorMessage
+                      name="confirmPassword"
+                      component="p"
+                      className="text-red-600 text-sm mt-1 w-full text-left"
+                    />
+                  </div>
+
+                  <div className="w-full pt-6 flex flex-col justify-center items-center gap-2">
+                    <button
+                      type="submit"
+                      disabled={isLoading}
+                      className={`w-full h-11 px-3.5 py-2 bg-purple-400 rounded-lg outline outline-1 outline-purple-400 ${
+                        isLoading ? "opacity-50 cursor-not-allowed" : ""
+                      }`}
+                    >
+                      <span className="text-white text-lg font-normal">
+                        {isLoading ? "Creating account..." : "Create Account"}
+                      </span>
+                    </button>
+                  </div>
+                </Form>
+              )}
+            </Formik>
+
+            <div className="w-full pt-6 flex justify-between items-center">
+              <div className="w-36 self-stretch flex justify-start items-center gap-2.5">
+                <div className="w-28 h-px bg-neutral-200"></div>
+              </div>
+              <div className="flex-1 flex justify-center items-center gap-2.5">
+                <span className="text-neutral-200 text-sm font-normal">
+                  or continue with
+                </span>
+              </div>
+              <div className="w-36 self-stretch flex justify-end items-center gap-2.5">
+                <div className="w-28 h-px bg-neutral-200"></div>
+              </div>
             </div>
-          </Form>
-        )}
-      </Formik>
+
+            <div className="w-full pt-6 flex justify-center items-center gap-6">
+              <button
+                onClick={handleGoogleSignup}
+                disabled={isGoogleLoading}
+                className={`flex-1 px-6 py-3.5 bg-black rounded-lg outline outline-1 outline-neutral-200 flex justify-center items-center gap-2.5 ${
+                  isGoogleLoading ? "opacity-50 cursor-not-allowed" : ""
+                }`}
+              >
+                <FcGoogle className="w-5 h-5" />
+                <span className="text-neutral-200 text-lg font-normal">
+                  Sign in
+                </span>
+              </button>
+              <button className="flex-1 px-6 py-3.5 bg-black rounded-lg outline outline-1 outline-neutral-200 flex justify-center items-center gap-2.5">
+                <FaGithub className="w-5 h-5 text-white" />
+                <span className="text-neutral-200 text-lg font-normal">
+                  Sign in
+                </span>
+              </button>
+              <button className="flex-1 px-6 py-3.5 bg-black rounded-lg outline outline-1 outline-neutral-200 flex justify-center items-center gap-2.5">
+                <div className="relative w-5 h-5">
+                  <div className="absolute w-2.5 h-2.5 left-0 top-0" style={{ backgroundColor: 'rgba(224, 30, 90, 1)' }}></div>
+                  <div className="absolute w-2.5 h-2.5 left-0 bottom-0" style={{ backgroundColor: 'rgba(236, 178, 46, 1)' }}></div>
+                  <div className="absolute w-2.5 h-2.5 right-0 top-0" style={{ backgroundColor: 'rgba(54, 197, 240, 1)' }}></div>
+                  <div className="absolute w-2.5 h-2.5 right-0 bottom-0" style={{ backgroundColor: 'rgba(46, 182, 125, 1)' }}></div>
+                </div>
+                <span className="text-neutral-200 text-lg font-normal">
+                  Sign in
+                </span>
+              </button>
+            </div>
+
+            <div className="w-full pt-6 flex justify-center items-center gap-2.5">
+              <p className="text-center">
+                <span className="text-neutral-200 text-xl font-normal">
+                  Already have Account?{" "}
+                </span>
+                <button
+                  onClick={() => navigate(ROUTES.authentication.login)}
+                  className="text-purple-400 text-xl font-normal underline hover:text-purple-300 focus:outline-none"
+                >
+                  Login
+                </button>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };
 
-export default Register;
+export default Signup;

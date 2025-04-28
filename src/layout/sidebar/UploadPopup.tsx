@@ -8,7 +8,7 @@ export const UploadPopup: React.FC<UploadPopupProps> = ({ isOpen }) => {
   if (!isOpen) return null;
 
   return (
-    <div className="w-[244px] h-[170px] px-6 pt-[25px] pb-5 bg-[#1e1f1f] rounded-[26px] border border-[#2d2d2d] flex-col justify-between items-center inline-flex overflow-hidden">
+    <div className="w-[265px] h-[170px] px-6 pt-[2px] pb-5 bg-[#1e1f1f] rounded-[26px] border border-[#2d2d2d] flex-col justify-between items-center inline-flex overflow-hidden">
       <div className="self-stretch text-[#cfcece] text-xs font-semibold font-['Lato 12 pt']">
         <ul className="list-disc pl-5 space-y-1">
           <li>Visualize your data</li>
@@ -17,10 +17,9 @@ export const UploadPopup: React.FC<UploadPopupProps> = ({ isOpen }) => {
         </ul>
       </div>
 
-      {/* Added margin-top to create space between text and button */}
-      <div className="self-stretch mt-2 px-5 py-2.5 rounded-[14px] border border-[#2d2d2d] justify-center items-center gap-2.5 inline-flex">
+      <button className="self-stretch mt-2 px-5 py-2.5 rounded-[14px] border border-[#2d2d2d] justify-center items-center gap-2.5 inline-flex hover:border-[rgba(186,134,252,1)] hover:bg-[#2A2B2B] transition-colors">
         <div className="text-[#cfcece] text-xs font-semibold font-['Lato 12pt']">Upload</div>
-      </div>
+      </button>
     </div>
   );
 };

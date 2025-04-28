@@ -1,4 +1,4 @@
-import { useState } from "react";
+/*import { useState } from "react";
 import { IoMenu } from "react-icons/io5";
 import { Link } from "react-router-dom";
 import { useTheme } from "src/context/hooks/useTheme";
@@ -28,9 +28,9 @@ const Header = () => {
         <h1 className="text-[#131b62] font-bold text-2xl sm:text-2xl">
           MajMap
         </h1>
-
+*/
         {/* Desktop Navigation */}
-        <div className="hidden md:flex gap-6">
+       /* <div className="hidden md:flex gap-6">
           {navLinks.map((link) => (
             <Link key={link.label} to={link.href}>
               <span className="cursor-pointer text-black hover:text-deep-blue transition-colors text-base">
@@ -39,9 +39,9 @@ const Header = () => {
             </Link>
           ))}
         </div>
-
+*/
         {/* Desktop Login Button and Dark Mode Toggle */}
-        <div className="flex justify-center items-center gap-4">
+        /*<div className="flex justify-center items-center gap-4">
           <button
             className="px-6 py-2 border border-blue-900 text-blue-900 rounded-md hover:bg-blue-900 hover:text-white transition"
             onClick={handleLoginClick}
@@ -55,17 +55,18 @@ const Header = () => {
             {theme === "light" ? <FaMoon /> : <FiSun />}
           </button>
         </div>
-
+*/
         {/* Mobile Menu Button */}
-        <button
+       /* <button
   className="md:hidden p-3 text-blue-900 focus:outline-none focus:ring-2 focus:ring-blue-500"
   onClick={() => setMobileOpen(true)}
+  title="Open Menu"
 >
   <IoMenu size={24} />
 </button>
-
+*/
 {/* Mobile Menu Overlay */}
-{mobileOpen && (
+/*{mobileOpen && (
   <div className="fixed inset-0 bg-black/50 flex justify-end md:hidden">
     <div className="w-64 bg-white h-full flex flex-col shadow-lg">
       <div className="w-full flex justify-between items-center p-4 border-b">
@@ -114,3 +115,5 @@ const Header = () => {
 };
 
 export default Header;
+
+*/

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import Flowchart from "src/components/ReactFlowComponents/Flowchar";
+import Flowchart from "src/components/ReactFlowComponents/Flowchart";
 const ReactFlow = () => {
   const [description, setDescription] = useState("");
   const [flowchart, setFlowchart] = useState<any>(null);

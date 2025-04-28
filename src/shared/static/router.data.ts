@@ -1,21 +1,36 @@
 const ROUTES = {
+  // Authentication routes
   authentication: {
     login: "/auth/login",
     register: "/auth/register",
   },
-  dashboard:{
+  
+  // Dashboard routes
+  dashboard: {
     root: "/dashboard",
     workflow: "/dashboard/workflow",
-    test: "/dashboard/test",
+    upload: "/dashboard/upload",
+    generate: "/dashboard/generate",
+    templates: "/dashboard/templates",
+    styling: "/dashboard/styling",
     users: "/dashboard/users",
     settings: "/dashboard/settings",
+    test: "/dashboard/test",
   },
-  test: "/test",
-  root: "/",
-  about: "/about-us",
-  posts: "/all-posts",
-  profile: "/user-profile",
-  reactFlow: "/react-flow",
+  
+  // Public routes
+  public: {
+    root: "/",
+    about: "/about-us",
+    posts: "/all-posts",
+    test: "/test",
+    reactFlow: "/react-flow",
+  },
+  
+  // User routes
+  user: {
+    profile: "/user-profile", 
+  }
 };
 
 export default ROUTES;

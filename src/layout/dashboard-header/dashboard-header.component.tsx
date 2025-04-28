@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import logo from "src/assets/Group 2.svg";
+import logo from "src/assets/Icon1.svg";
 import { FaShareSquare } from "react-icons/fa";
 import { CommentQuote24Regular } from "@fluentui/react-icons";
 
@@ -20,7 +20,7 @@ export default function DashboardHeaderComponent() {
 
   return (
     <header
-      className="flex items-center gap-4 px-[50px] py-[25px] bg-[#1E1F1F] border-b-[1px] border-[#2E2E2E]"
+      className="flex items-center gap-4 px-[25px] py-[16px] bg-[#1E1F1F] border-b-[1px] border-[#2E2E2E]"
       style={{ height: "64px", width: "1410px" }}
     >
       <img src={logo} alt="Logo" className="w-auto h-full" />

@@ -1,7 +1,7 @@
 import { Outlet } from "react-router-dom";
 import DashboardHeaderComponent from "./dashboard-header/dashboard-header.component";
 import Sidebar from "./sidebar/sidebar.component";
-import DashboardFooter from "./dashboard-footer/dashboard-footer.component";
+//import DashboardFooter from "./dashboard-footer/dashboard-footer.component";
 
 export default function SidebarLayout() {
   return (
@@ -26,9 +26,9 @@ export default function SidebarLayout() {
         </div>
       </div>
 
-      {/* Footer */}
-      <DashboardFooter />
-    </div>
-    </>
+     {/* Footer */}
+{/* <DashboardFooter /> */}
+</div>
+</>
   );
 }

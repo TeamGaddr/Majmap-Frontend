@@ -8,7 +8,7 @@ const Styling: React.FC<StylingProps> = ({ isOpen }) => {
   if (!isOpen) return null; // Don't render the component if `isOpen` is false
 
   return (
-    <div className="w-[274px] h-48 px-6 py-8 bg-[#1e1f1f] rounded-[25px] border border-[#2d2d2d] flex-col justify-center items-center gap-6 inline-flex">
+    <div className="w-[265px] h-50 px-6 py-8 bg-[#1e1f1f] rounded-[25px] border border-[#2d2d2d] flex-col justify-center items-center gap-6 inline-flex">
       <div className="self-stretch text-[#e2e2e2] text-xs font-semibold font-['Lato 12pt']">
         Use conditional formatting to automatically style your shapes using colors, icons, and dynamic shapes. Visualize changes in real time and identify patterns in your diagram.
       </div>
