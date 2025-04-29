@@ -5,37 +5,22 @@ const WorkflowPage: React.FC = () => {
   const [hoveredRow, setHoveredRow] = useState<string | null>(null);
   const [showModal, setShowModal] = useState(false);
 
-  // State for workflow inputs
   const [workflowName, setWorkflowName] = useState('');
   const [description, setDescription] = useState('');
-
-  // State for validation errors
-  const [nameError, setNameError] = useState('');
-  const [descriptionError, setDescriptionError] = useState('');
-
-  // State to store workflows
   const [workflows, setWorkflows] = useState<
     { id: number; name: string; version: string; description: string }[]
   >([]);
+  const [searchTerm, setSearchTerm] = useState('');
+
+  const [errors, setErrors] = useState<{ name?: string; description?: string }>({});
 
   const handleSubmit = () => {
-    let valid = true;
+    const newErrors: typeof errors = {};
+    if (!workflowName.trim()) newErrors.name = 'Workflow name is required.';
+    if (!description.trim()) newErrors.description = 'Description is required.';
+    setErrors(newErrors);
 
-    if (!workflowName.trim()) {
-      setNameError('Workflow name is required.');
-      valid = false;
-    } else {
-      setNameError('');
-    }
-
-    if (!description.trim()) {
-      setDescriptionError('Description is required.');
-      valid = false;
-    } else {
-      setDescriptionError('');
-    }
-
-    if (!valid) return;
+    if (Object.keys(newErrors).length > 0) return;
 
     const newWorkflow = {
       id: workflows.length + 1,
@@ -48,9 +33,14 @@ const WorkflowPage: React.FC = () => {
     setWorkflowName('');
     setDescription('');
     setShowModal(false);
-    setNameError('');
-    setDescriptionError('');
+    setErrors({});
   };
+
+  const filteredWorkflows = workflows.filter(
+    (w) =>
+      w.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      w.id.toString().includes(searchTerm)
+  );
 
   return (
     <div className="min-h-screen bg-[#1A1A1A] p-6 overflow-y-auto scroll-smooth text-white">
@@ -75,6 +65,8 @@ const WorkflowPage: React.FC = () => {
               </div>
               <input
                 type="text"
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
                 placeholder="Search Workflow"
                 className="bg-[#2A2A2A] border border-[#3A3A3A] rounded-lg pl-10 pr-4 py-2 text-white w-full"
               />
@@ -106,22 +98,26 @@ const WorkflowPage: React.FC = () => {
                   value={workflowName}
                   onChange={(e) => setWorkflowName(e.target.value)}
                   placeholder="Workflow1"
-                  className={`w-full mb-1 px-4 py-2 rounded border ${
-                    nameError ? 'border-red-500' : 'border-[#3A3A3A]'
-                  } bg-transparent text-white`}
+                  className={`w-full px-4 py-2 rounded border ${
+                    errors.name ? 'border-red-500' : 'border-[#3A3A3A]'
+                  } bg-transparent text-white mb-1`}
                 />
-                {nameError && <p className="text-red-400 text-sm mb-2">{nameError}</p>}
+                {errors.name && (
+                  <p className="text-red-400 text-sm mb-2">{errors.name}</p>
+                )}
 
-                <label className="block text-white mb-1">Description</label>
+                <label className="block text-white mb-1 mt-4">Description</label>
                 <textarea
                   value={description}
                   onChange={(e) => setDescription(e.target.value)}
                   placeholder="Enter a description..."
                   className={`w-full h-24 px-4 py-2 rounded border ${
-                    descriptionError ? 'border-red-500' : 'border-[#3A3A3A]'
+                    errors.description ? 'border-red-500' : 'border-[#3A3A3A]'
                   } bg-transparent text-white mb-1`}
                 />
-                {descriptionError && <p className="text-red-400 text-sm mb-2">{descriptionError}</p>}
+                {errors.description && (
+                  <p className="text-red-400 text-sm mb-4">{errors.description}</p>
+                )}
 
                 <p className="text-gray-400 text-sm mb-6">
                   This is a hint text to help user.
@@ -129,11 +125,7 @@ const WorkflowPage: React.FC = () => {
 
                 <div className="flex gap-6">
                   <button
-                    onClick={() => {
-                      setShowModal(false);
-                      setNameError('');
-                      setDescriptionError('');
-                    }}
+                    onClick={() => setShowModal(false)}
                     className="px-16 py-2 border border-white text-white rounded-lg"
                   >
                     Cancel
@@ -170,18 +162,18 @@ const WorkflowPage: React.FC = () => {
               </thead>
 
               <tbody>
-                {workflows.length === 0 ? (
+                {filteredWorkflows.length === 0 ? (
                   <tr
                     className={`transition-all ${hoveredRow === 'empty' ? 'bg-[#292929]' : ''}`}
                     onMouseEnter={() => setHoveredRow('empty')}
                     onMouseLeave={() => setHoveredRow(null)}
                   >
                     <td colSpan={4} className="text-center py-8 text-gray-400">
-                      There is no workflow definitions to show
+                      No matching workflows found
                     </td>
                   </tr>
                 ) : (
-                  workflows.map((workflow) => (
+                  filteredWorkflows.map((workflow) => (
                     <tr key={workflow.id} className="hover:bg-[#292929] transition-colors">
                       <td className="px-6 py-4 border-b border-[#3A3A3A]">{workflow.id}</td>
                       <td className="px-6 py-4 border-b border-[#3A3A3A]">{workflow.name}</td>
