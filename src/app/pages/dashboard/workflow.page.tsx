@@ -5,17 +5,37 @@ const WorkflowPage: React.FC = () => {
   const [hoveredRow, setHoveredRow] = useState<string | null>(null);
   const [showModal, setShowModal] = useState(false);
 
-  // New state for workflow input
+  // State for workflow inputs
   const [workflowName, setWorkflowName] = useState('');
   const [description, setDescription] = useState('');
 
-  // New state to store all workflows
+  // State for validation errors
+  const [nameError, setNameError] = useState('');
+  const [descriptionError, setDescriptionError] = useState('');
+
+  // State to store workflows
   const [workflows, setWorkflows] = useState<
     { id: number; name: string; version: string; description: string }[]
   >([]);
 
   const handleSubmit = () => {
-    if (!workflowName.trim() || !description.trim()) return;
+    let valid = true;
+
+    if (!workflowName.trim()) {
+      setNameError('Workflow name is required.');
+      valid = false;
+    } else {
+      setNameError('');
+    }
+
+    if (!description.trim()) {
+      setDescriptionError('Description is required.');
+      valid = false;
+    } else {
+      setDescriptionError('');
+    }
+
+    if (!valid) return;
 
     const newWorkflow = {
       id: workflows.length + 1,
@@ -28,6 +48,8 @@ const WorkflowPage: React.FC = () => {
     setWorkflowName('');
     setDescription('');
     setShowModal(false);
+    setNameError('');
+    setDescriptionError('');
   };
 
   return (
@@ -84,16 +106,22 @@ const WorkflowPage: React.FC = () => {
                   value={workflowName}
                   onChange={(e) => setWorkflowName(e.target.value)}
                   placeholder="Workflow1"
-                  className="w-full mb-4 px-4 py-2 rounded border border-[#3A3A3A] bg-transparent text-white"
+                  className={`w-full mb-1 px-4 py-2 rounded border ${
+                    nameError ? 'border-red-500' : 'border-[#3A3A3A]'
+                  } bg-transparent text-white`}
                 />
+                {nameError && <p className="text-red-400 text-sm mb-2">{nameError}</p>}
 
                 <label className="block text-white mb-1">Description</label>
                 <textarea
                   value={description}
                   onChange={(e) => setDescription(e.target.value)}
                   placeholder="Enter a description..."
-                  className="w-full h-24 px-4 py-2 rounded border border-[#3A3A3A] bg-transparent text-white mb-2"
+                  className={`w-full h-24 px-4 py-2 rounded border ${
+                    descriptionError ? 'border-red-500' : 'border-[#3A3A3A]'
+                  } bg-transparent text-white mb-1`}
                 />
+                {descriptionError && <p className="text-red-400 text-sm mb-2">{descriptionError}</p>}
 
                 <p className="text-gray-400 text-sm mb-6">
                   This is a hint text to help user.
@@ -101,7 +129,11 @@ const WorkflowPage: React.FC = () => {
 
                 <div className="flex gap-6">
                   <button
-                    onClick={() => setShowModal(false)}
+                    onClick={() => {
+                      setShowModal(false);
+                      setNameError('');
+                      setDescriptionError('');
+                    }}
                     className="px-16 py-2 border border-white text-white rounded-lg"
                   >
                     Cancel
@@ -109,7 +141,6 @@ const WorkflowPage: React.FC = () => {
                   <button
                     onClick={handleSubmit}
                     className="px-16 py-2 bg-purple-500 text-white rounded-lg hover:bg-purple-600 disabled:opacity-50"
-                    disabled={!workflowName.trim() || !description.trim()}
                   >
                     Confirm
                   </button>
