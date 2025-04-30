@@ -2,7 +2,6 @@ import { Suspense, useEffect } from "react";
 import { ToastContainer } from "react-toastify";
 import { BrowserRouter, Route, Routes, useLocation } from "react-router-dom";
 import { ThemeProvider } from "../context/theme/ThemeProvider";
-import "react-toastify/dist/ReactToastify.css";
 import "src/global.css";
 
 // Layouts

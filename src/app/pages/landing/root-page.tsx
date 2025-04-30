@@ -1,19 +1,15 @@
-import Customization from "src/components/Customization";
-import Hero from "src/components/Hero";
-import HowItWorks from "src/components/Howitworks";
-import NoCode from "src/components/Nocode";
-import Testimonials from "src/components/Testimonials";
-import UniversalProcess from "src/components/UniversalProcess";
+import React from "react";
+import Navbar from "../../../components/Navbar";
+import Hero from "../../../components/Hero";
 
-export default function RootPage() {
+
+const RootPage: React.FC = () => {
   return (
     <>
+      <Navbar />
       <Hero />
-      <UniversalProcess/> 
-      <Customization />
-      <NoCode />
-      <HowItWorks />
-      <Testimonials />
     </>
   );
-}
+};
+
+export default RootPage;
