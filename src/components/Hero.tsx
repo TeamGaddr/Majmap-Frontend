@@ -13,27 +13,37 @@ const Hero: React.FC = () => {
         <p className="text-2xl text-gray-300 mb-8 max-w-md">
           Create, or use our brilliantly structured templates. Assisted and generated workflows using AI, all your diagramming needs in one place.
         </p>
-
-        <button className="bg-purple-500  text-white text-sm font-medium px-40 py-3 rounded-md hover:bg-purple-600 transition">
-          Sign up free
-        </button>
-        <div className="mt-6">
-          <p className="flex  text-gray-400 mb-6">or continue with</p>
-          <div className="flex flex-col sm:flex-row gap-4">
-            <button className="flex items-center justify-center gap-2 border border-white w-[170px] h-[44px] rounded-md text-sm hover:bg-white hover:text-black transition">
-              <FcGoogle className="w-5 h-5" />
-              Sign in
-            </button>
-            <button className="flex items-center justify-center gap-2 border border-white w-[170px] h-[44px] rounded-md text-sm hover:bg-white hover:text-black transition">
-              <FaGithub className="w-5 h-5" />
-              Sign in
-            </button>
-            <button className="flex items-center justify-center gap-2 border border-white w-[170px] h-[44px] rounded-md text-sm hover:bg-white hover:text-black transition">
-              <FaSlack className="w-5 h-5 text-[#4A154B]" />
-              Sign in
-            </button>
-          </div>
+        {/* CTA Button */}
+        <div className="flex justify-center">
+          <button className="bg-purple-500 text-white text-sm font-medium px-6 py-3 rounded-md hover:bg-purple-600 transition  w-full ">
+            Sign up free
+          </button>
         </div>
+
+        {/* Divider */}
+        <div className="flex items-center my-6">
+          <hr className="flex-grow border-gray-700" />
+          <span className="mx-4 text-gray-400 text-sm">or continue with</span>
+          <hr className="flex-grow border-gray-700" />
+        </div>
+
+        {/* Social Buttons */}
+        <div className="flex flex-col sm:flex-row gap-4 justify-center">
+          <button className="flex items-center justify-center gap-2 border border-white w-[170px] h-[44px] rounded-md text-sm hover:bg-white hover:text-black transition">
+            <FcGoogle className="w-5 h-5" />
+            Sign in
+          </button>
+          <button className="flex items-center justify-center gap-2 border border-white w-[170px] h-[44px] rounded-md text-sm hover:bg-white hover:text-black transition">
+            <FaGithub className="w-5 h-5" />
+            Sign in
+          </button>
+          <button className="flex items-center justify-center gap-2 border border-white w-[170px] h-[44px] rounded-md text-sm hover:bg-white hover:text-black transition">
+            <FaSlack className="w-5 h-5 text-[#4A154B]" />
+            Sign in
+          </button>
+        </div>
+
+
       </div>
 
       {/* Right Image */}
