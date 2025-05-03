@@ -195,7 +195,7 @@ const Signup: React.FC = () => {
             </div>
             <div className="w-full pt-2 flex justify-center items-center gap-2.5 mb-6">
               <p className="flex-1 text-left text-white text-2xl font-normal">
-                Lorem Ipsum is simply dummy text of the
+              Use the links below to connect your profile
               </p>
             </div>
 
