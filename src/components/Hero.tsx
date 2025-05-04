@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import { FcGoogle } from "react-icons/fc";
 import { FaGithub, FaSlack } from "react-icons/fa";
 
@@ -13,11 +14,15 @@ const Hero: React.FC = () => {
         <p className="text-2xl text-gray-300 mb-8 max-w-md">
           Create, or use our brilliantly structured templates. Assisted and generated workflows using AI, all your diagramming needs in one place.
         </p>
+
         {/* CTA Button */}
         <div className="flex justify-center">
-          <button className="bg-purple-500 text-white text-sm font-medium px-6 py-3 rounded-md hover:bg-purple-600 transition  w-full ">
-            Sign up free
-          </button>
+          <Link
+            to="/auth/login"
+            className="bg-purple-500 text-white text-sm font-medium px-6 py-3 rounded-md hover:bg-purple-600 transition w-full text-center"
+          >
+            Sign In
+          </Link>
         </div>
 
         {/* Divider */}
@@ -29,21 +34,28 @@ const Hero: React.FC = () => {
 
         {/* Social Buttons */}
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
-          <button className="flex items-center justify-center gap-2 border border-white w-[170px] h-[44px] rounded-md text-sm hover:bg-white hover:text-black transition">
+          <Link
+            to="/auth/google"
+            className="flex items-center justify-center gap-2 border border-white w-[170px] h-[44px] rounded-md text-sm hover:bg-white hover:text-black transition"
+          >
             <FcGoogle className="w-5 h-5" />
             Sign in
-          </button>
-          <button className="flex items-center justify-center gap-2 border border-white w-[170px] h-[44px] rounded-md text-sm hover:bg-white hover:text-black transition">
+          </Link>
+          <Link
+            to="/auth/github"
+            className="flex items-center justify-center gap-2 border border-white w-[170px] h-[44px] rounded-md text-sm hover:bg-white hover:text-black transition"
+          >
             <FaGithub className="w-5 h-5" />
             Sign in
-          </button>
-          <button className="flex items-center justify-center gap-2 border border-white w-[170px] h-[44px] rounded-md text-sm hover:bg-white hover:text-black transition">
+          </Link>
+          <Link
+            to="/auth/slack"
+            className="flex items-center justify-center gap-2 border border-white w-[170px] h-[44px] rounded-md text-sm hover:bg-white hover:text-black transition"
+          >
             <FaSlack className="w-5 h-5 text-[#4A154B]" />
             Sign in
-          </button>
+          </Link>
         </div>
-
-
       </div>
 
       {/* Right Image */}
