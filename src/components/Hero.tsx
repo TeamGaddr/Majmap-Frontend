@@ -35,7 +35,7 @@ const Hero: React.FC = () => {
         {/* Social Buttons */}
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
           <Link
-            to="/auth/google"
+            to="http://localhost:3000/auth/google"
             className="flex items-center justify-center gap-2 border border-white w-[170px] h-[44px] rounded-md text-sm hover:bg-white hover:text-black transition"
           >
             <FcGoogle className="w-5 h-5" />
