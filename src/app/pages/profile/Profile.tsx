@@ -89,7 +89,7 @@ const Profile: React.FC = () => {
         </div>
         <button
           className="text-white text-2xl font-bold hover:text-gray-400"
-          onClick={() => navigate("/")} // or close modal/logout
+          onClick={() => navigate("/dashboard")} // or close modal/logout
         >
           &times;
         </button>
