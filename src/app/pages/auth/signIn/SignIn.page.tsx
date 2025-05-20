@@ -55,38 +55,81 @@ export default function SignIn() {
   const [isLoading, setIsLoading] = useState(false);
   const [isGoogleLoading, setIsGoogleLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
+async (values: SignInFormValues) => {
+  setIsLoading(true);
+  try {
+    const response = await fetch("http://localhost:3000/login", {
+      method: "POST",
+      credentials: "include",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(values),
+    });
 
-  const handleFormSubmit = async (values: SignInFormValues) => {
-    setIsLoading(true);
-    try {
-      const response = await fetch("http://localhost:3000/login", {
-        method: "POST",
-        credentials: "include",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(values),
-      });
-
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.error || "Invalid email or password");
-      }
-
-      const data = await response.json();
-      
-      // Store tokens and user data
-      localStorage.setItem("accessToken", data.accessToken);
-      localStorage.setItem("refreshToken", data.refreshToken);
-      
-      toast.success("Sign in successful!");
-      navigate(ROUTES.user.profile, { replace: true });
-    } catch (error) {
-      toast.error(
-        error instanceof Error ? error.message : "Login failed. Please try again."
-      );
-    } finally {
-      setIsLoading(false);
+    if (!response.ok) {
+      const errorData = await response.json();
+      throw new Error(errorData.error || "Invalid email or password");
     }
-  };
+
+    const data = await response.json();
+
+    // Store tokens
+    localStorage.setItem("accessToken", data.accessToken);
+    localStorage.setItem("refreshToken", data.refreshToken);
+
+    toast.success("Sign in successful!");
+
+    // Redirect logic based on isFirstLogin
+    if (data.isFirstLogin) {
+      navigate(ROUTES.user.profile, { replace: true });
+    } else {
+      navigate(ROUTES.user.dashboard, { replace: true });
+    }
+  } catch (error) {
+    toast.error(
+      error instanceof Error ? error.message : "Login failed. Please try again."
+    );
+  } finally {
+    setIsLoading(false);
+  }
+};
+  const handleFormSubmit = async (values: SignInFormValues) => {
+  setIsLoading(true);
+  try {
+    const response = await fetch("http://localhost:3000/login", {
+      method: "POST",
+      credentials: "include",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(values),
+    });
+
+    if (!response.ok) {
+      const errorData = await response.json();
+      throw new Error(errorData.error || "Invalid email or password");
+    }
+
+    const data = await response.json();
+
+    // Store tokens
+    localStorage.setItem("accessToken", data.accessToken);
+    localStorage.setItem("refreshToken", data.refreshToken);
+
+    toast.success("Sign in successful!");
+
+    // Redirect logic based on isFirstLogin
+    if (data.isFirstLogin) {
+      navigate(ROUTES.user.profile, { replace: true });
+    } else {
+      navigate(ROUTES.user.dashboard, { replace: true });
+    }
+  } catch (error) {
+    toast.error(
+      error instanceof Error ? error.message : "Login failed. Please try again."
+    );
+  } finally {
+    setIsLoading(false);
+  }
+};
+
 
   const handleGoogleSignIn = () => {
     setIsGoogleLoading(true);
@@ -160,7 +203,6 @@ export default function SignIn() {
                   <div className="w-full flex justify-end mt-2">
                     <button
                       type="button"
-                      onClick={() => navigate(ROUTES.authentication.forgotPassword)}
                       className="text-purple-400 text-sm font-normal hover:underline focus:outline-none"
                     >
                       Forgot Password?

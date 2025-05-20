@@ -30,6 +30,7 @@ const ROUTES = {
   // User routes
   user: {
     profile: "/user-profile", 
+    dashboard:"/dashboard"
   }
 };
 
