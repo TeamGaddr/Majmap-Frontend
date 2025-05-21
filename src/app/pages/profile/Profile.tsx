@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import logo from "../../../assets/Logo.svg";
-import logo2 from "public/assets/MajMap 1.svg";
+import logo2 from "/assets/MajMap 1.svg";
 
 interface UserData {
   id: string;
