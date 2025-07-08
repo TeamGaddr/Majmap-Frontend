@@ -1,5 +1,5 @@
 import { Typography, Box } from "@mui/material";
-/*import CustomerOne from "./Customeone"; */
+import CustomerOne from "./CustomeOne"; 
 
 // Import your images - adjust the paths according to your project structure
 import testimonialImage1 from "../assets/testimonial-image1.svg";
