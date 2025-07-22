@@ -1,10 +1,12 @@
 import { useState } from "react";
 import Flowchart from "src/components/ReactFlowComponents/Flowchart";
+
 const ReactFlow = () => {
   const [description, setDescription] = useState("");
   const [flowchart, setFlowchart] = useState<any>(null);
-  const [finalNodes, setFinalNodes] = useState([]);
-  const [finalEdges, setFinalEdges] = useState([]);
+  // Remove unused variables, keep only setters
+  const [, setFinalNodes] = useState([]);
+  const [, setFinalEdges] = useState([]);
   const [generateFlowChart, setGenerateFlowChart] = useState(false);
   const [drawFlowChart, setDrawFlowChart] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -19,7 +21,6 @@ const ReactFlow = () => {
     setFlowchart(null);
     setFinalNodes([]);
     setFinalEdges([]);
-
     setLoading(true);
 
     try {
@@ -47,9 +48,7 @@ const ReactFlow = () => {
 
       if (jsonMatch && jsonMatch[1]) {
         const jsonString = jsonMatch[1];
-
         const flowchartData = JSON.parse(jsonString);
-
         const { nodes, edges } = flowchartData;
         setFinalNodes(nodes);
         setFinalEdges(edges);

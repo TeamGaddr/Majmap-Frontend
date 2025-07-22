@@ -37,12 +37,12 @@ interface FlowchartProps {
 
 const Flowchart = ({ flowchart }: FlowchartProps) => {
   const { nodes: initialNodes, edges: initialEdges } = flowchart;
-  const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes);
+  const [nodes, , onNodesChange] = useNodesState(initialNodes); // use _ for unused setNodes
   const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges);
 
   const onConnect = useCallback(
     (connection: any) => setEdges((eds) => addEdge(connection, eds)),
-    []
+    [setEdges]
   );
 
   return (
