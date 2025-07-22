@@ -47,7 +47,7 @@ export default function WorkflowEditor() {
 
   // Handle double-click on a node to edit it
   const handleNodeDoubleClick = useCallback(
-    (event: React.MouseEvent, node: Node) => {
+    (_:any, node: Node) => {
       setSelectedNode(node);
       setNodeLabel(node.data.label);
     },

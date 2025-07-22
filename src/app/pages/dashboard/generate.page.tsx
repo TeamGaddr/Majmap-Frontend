@@ -1,5 +1,5 @@
 // src/app/pages/dashboard/generate.page.tsx
-import React from 'react';
+//import React from 'react';
 
 const GeneratePage = () => {
   return (
