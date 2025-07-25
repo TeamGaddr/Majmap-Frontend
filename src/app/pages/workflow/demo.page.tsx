@@ -11,7 +11,7 @@ import {
   Connection,
   BackgroundVariant,
 } from "reactflow";
-import { Templates } from "src/layout/sidebar/Templates";
+import { Templates } from "@/layout/sidebar/Templates";
 import "reactflow/dist/style.css";
 
 // Initial nodes and edges for the workflow

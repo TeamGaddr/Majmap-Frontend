@@ -1,4 +1,4 @@
-//import HeaderComponent from 'src/layout/header/header.layout';
+//import HeaderComponent from '@/layout/header/header.layout';
 import { Outlet } from 'react-router-dom';
 
 export default function HeaderFooterLayout() {

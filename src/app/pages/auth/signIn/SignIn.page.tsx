@@ -5,9 +5,9 @@ import * as Yup from "yup";
 import { FcGoogle } from "react-icons/fc";
 import { FaGithub, FaEye, FaEyeSlash } from "react-icons/fa";
 import { toast } from "react-toastify";
-import ROUTES from "src/shared/static/router.data";
-import Icon1 from "src/assets/icon1.svg";
-import Icon2 from "src/assets/icon2.svg";
+import ROUTES from "@/shared/static/router.data";
+import Icon1 from "@/assets/icon1.svg";
+import Icon2 from "@/assets/icon2.svg";
 
 interface SignInFormValues {
   email: string;

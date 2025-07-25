@@ -1,10 +1,10 @@
-/*import { useState } from "react";
+import { useState } from "react";
 import { IoMenu } from "react-icons/io5";
 import { Link } from "react-router-dom";
-import { useTheme } from "src/context/hooks/useTheme";
+import { useTheme } from "@/context/hooks/useTheme";
 import { FiSun } from "react-icons/fi";
 import { FaMoon } from "react-icons/fa";
-import ROUTES from "src/shared/static/router.data";
+import ROUTES from "@/shared/static/router.data";
 
 const Header = () => {
   const [mobileOpen, setMobileOpen] = useState(false);

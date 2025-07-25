@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import templatesData from 'src/templates.json';
+import templatesData from '@/templates.json';
 
 // Define the Template interface
 interface Node {

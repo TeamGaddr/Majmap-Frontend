@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import templatesData from 'src/templates.json';
+import templatesData from '@/templates.json';
 import { LayoutGrid, Users, GitBranch, LineChart, ShoppingCart, Map, Container, UserPlus, Stethoscope, Plus } from 'lucide-react';
 
 // Define TypeScript interfaces
