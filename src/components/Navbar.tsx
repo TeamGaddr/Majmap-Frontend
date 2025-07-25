@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom"; // 👈 import Link from react-router-dom
-import logo from "../assets/MajMap 1.svg";
+import logo from "@/assets/MajMap 1.svg";
 
 const Navbar: React.FC = () => {
   return (

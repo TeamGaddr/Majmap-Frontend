@@ -1,15 +1,15 @@
 import { Suspense, useEffect } from "react";
 import { ToastContainer } from "react-toastify";
 import { BrowserRouter, Route, Routes, useLocation } from "react-router-dom";
-import { ThemeProvider } from "../context/theme/ThemeProvider";
-import "src/global.css";
+import { ThemeProvider } from "@/context/theme/ThemeProvider";
+import "@/global.css";
 
 // Layouts
-import HeaderFooterLayout from "src/layout/header-footer.layout";
-import SidebarLayout from "src/layout/sidebar.layout";
+import HeaderFooterLayout from "@/layout/header-footer.layout";
+import SidebarLayout from "@/layout/sidebar.layout";
 
 // Pages
-import ROUTES from "src/shared/static/router.data";
+import ROUTES from "@/shared/static/router.data";
 import RootPage from "./pages/landing/root-page";
 import About from "./pages/about/About";
 import Posts from "./pages/posts/Posts";
