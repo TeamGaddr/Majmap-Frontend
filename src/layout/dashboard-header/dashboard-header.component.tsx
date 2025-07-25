@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from "react";
-import logo from "src/assets/Icon1.svg";
+import logo from "@/assets/Icon1.svg";
 import {  FaCheck } from "react-icons/fa";
 import { CommentQuote24Regular } from "@fluentui/react-icons";
 import { FiLogOut, FiSettings, FiHelpCircle, FiUser } from "react-icons/fi";
